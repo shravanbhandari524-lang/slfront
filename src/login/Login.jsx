@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { getRole } from "../services/decodeToken.js";
 import { useContext } from "react";
 import { Rcont } from "../context/Rcontext.jsx";
+import styles from "../modular_css/Login.module.css";
+
 export default function Login() {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
@@ -11,7 +13,7 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("hoi");
+    console.log("Login attempt...");
 
     try {
       const res = await fetch("http://localhost:8080/auth/login", {
@@ -33,34 +35,50 @@ export default function Login() {
           navigate("/ship");
         }
       } else {
-        const errort = await res.text(); // ✅ fixed
+        const errort = await res.text();
         console.log("Server error:", errort);
       }
     } catch (err) {
       console.log("Network error:", err.message);
     }
   };
+
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>username</label>
-          <input
-            placeholder="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-        </div>
-        <div>
-          <label>password</label>
-          <input
-            placeholder="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <button type="submit">submit</button>
-      </form>
+    <div className={styles.container}>
+      <div className={styles.loginCard}>
+        <h1 className={styles.title}>Welcome Back</h1>
+        <p className={styles.subtitle}>Please enter your details to sign in</p>
+        
+        <form className={styles.form} onSubmit={handleSubmit}>
+          <div className={styles.inputGroup}>
+            <label className={styles.label}>username</label>
+            <input
+              className={styles.input}
+              placeholder="Enter your username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
+          </div>
+          
+          <div className={styles.inputGroup}>
+            <label className={styles.label}>password</label>
+            <input
+              className={styles.input}
+              type="password"
+              placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          
+          <button className={styles.submitBtn} type="submit">
+            Sign In
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
+
