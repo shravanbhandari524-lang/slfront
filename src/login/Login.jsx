@@ -14,7 +14,6 @@ export default function Login() {
     console.log("hoi");
 
     try {
-      const res1 = await fetch("http://localhost:8080/auth/refersh");
       const res = await fetch("http://localhost:8080/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },

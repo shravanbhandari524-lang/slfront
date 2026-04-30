@@ -7,10 +7,10 @@ import "./index.css";
 
 createRoot(document.getElementById("root")).render(
   <BrowserRouter>
-    <Rcontext>
-      <StrictMode>
+    <StrictMode>
+      <Rcontext>
         <App />
-      </StrictMode>
-    </Rcontext>
+      </Rcontext>
+    </StrictMode>
   </BrowserRouter>,
 );
