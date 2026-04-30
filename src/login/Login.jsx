@@ -1,29 +1,44 @@
-import { useState } from "react";
-import { storeAccess } from "../services/decodeToken.js";
-
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { getRole } from "../services/decodeToken.js";
+import { useContext } from "react";
+import { Rcont } from "../context/Rcontext.jsx";
 export default function Login() {
+  const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const { token, setToken } = useContext(Rcont);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("hoi");
+
     try {
+      const res1 = await fetch("http://localhost:8080/auth/refersh");
       const res = await fetch("http://localhost:8080/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password }),
       });
-
-      console.log("Status:", res.status);
-
       if (res.ok) {
         const data = await res.json();
-        storeAccess(data.access);
+
+        setToken(data.access);
+        const role = getRole(data.access);
+        if (role == 0) {
+          navigate("/");
+          setToken("");
+        } else if (role == "admin") {
+          navigate("/admin");
+        } else if (role == "ship") {
+          navigate("/ship");
+        }
       } else {
-        const errorText = await res.text();
-        console.log("Error response:", errorText);
+        const errort = await res.text(); // ✅ fixed
+        console.log("Server error:", errort);
       }
     } catch (err) {
-      console.log(err.message);
+      console.log("Network error:", err.message);
     }
   };
   return (

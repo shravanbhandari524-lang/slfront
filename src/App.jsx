@@ -4,11 +4,12 @@ import ProtectRoutes from "./components/ProtectRoutes.jsx";
 import Ship from "./Ship/Ship.jsx";
 import Vendor from "./Vendor/Vendor.jsx";
 import Admin from "./admin/Admin.jsx";
+import HomeRedirect from "./components/HomeRedirect.jsx";
 function App() {
   return (
     <div>
       <Routes>
-        <Route path="/" element={<Login />} />
+        <Route path="/" element={<HomeRedirect />} />
         <Route path="/login" element={<Login />} />
         <Route
           path="/ship"
