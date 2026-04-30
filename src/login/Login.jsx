@@ -24,7 +24,7 @@ export default function Login() {
       });
       if (res.ok) {
         const data = await res.json();
-
+        console.log(data);
         setToken(data.access);
         const role = getRole(data.access);
         if (role == 0) {

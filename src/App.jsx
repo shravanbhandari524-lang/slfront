@@ -9,8 +9,15 @@ function App() {
   return (
     <div>
       <Routes>
-        <Route path="/" element={<HomeRedirect />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<HomeRedirect></HomeRedirect>} />
+        <Route
+          path="/login"
+          element={
+            <HomeRedirect>
+              <Login />
+            </HomeRedirect>
+          }
+        />
         <Route
           path="/ship"
           element={

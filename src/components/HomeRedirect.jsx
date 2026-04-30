@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Rcont } from "../context/Rcontext";
 import { getRole } from "../services/decodeToken";
 
-export default function HomeRedirect() {
+export default function HomeRedirect({ children }) {
   const { token, setToken } = useContext(Rcont);
   const navigate = useNavigate();
 
@@ -12,7 +12,7 @@ export default function HomeRedirect() {
       try {
         const res = await fetch("http://localhost:8080/auth/refresh", {
           method: "POST", // or "POST" depending on your backend
-          credentials: "include", // important for cookies (refresh token)
+          credentials: "include",
           headers: {
             "Content-Type": "application/json",
           },
@@ -40,5 +40,5 @@ export default function HomeRedirect() {
     check();
   }, []);
 
-  return <div>Loading...</div>;
+  return children;
 }
