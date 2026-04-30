@@ -23,7 +23,6 @@ export default function HomeRedirect({ children }) {
 
           setToken(data.access);
           const role = getRole(data.access);
-          console.log("hhhe");
 
           if (role === "admin") navigate("/admin");
           else if (role === "ship") navigate("/ship");
