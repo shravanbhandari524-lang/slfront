@@ -1,100 +1,50 @@
-import { useNavigate } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { Rcont } from "../context/Rcontext.jsx";
+
 import styles from "./Ship.module.css";
-import { decodeToken } from "../services/decodeToken.js";
 
-export default function Admin() {
-  const navigate = useNavigate();
+import { useAuthRefresh } from "../hooks/useAuthRefresh.js";
+import { useProfile } from "../hooks/useProfile.js";
+import { useOffers } from "../hooks/useOffers.js";
+import { refreshOffers } from "../services/refreshOffers.js";
 
-  const { token, setToken } = useContext(Rcont);
-  const [profile, setProfile] = useState({
-    uuid: null,
-    username: null,
-    imo: null,
-    type: null,
-    created_at: null,
-    vendor_username: null,
-  });
-  const [decoded, setDecoded] = useState(null); // ✅ stays null until loaded
+export default function Ship() {
+  const { token } = useContext(Rcont);
 
-  const loadProfile = async () => {
-    try {
-      if (!decoded) {
-        await setAccesstoken();
-        return;
-      }
-      const profile1 = JSON.parse(localStorage.getItem("profile"));
+  const { decoded, refreshToken } = useAuthRefresh();
 
-      if (profile1) {
-        const res = await fetch(
-          "http://localhost:8080/ships/me/" + decoded.uuid,
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          },
-        );
-        if (!res.ok) {
-          throw { statusCode: res.status };
-        } else {
-          const { data } = await res.json();
-          const value = {
-            uuid: decoded.uuid,
-            username: decoded.username,
-            type: decoded.role,
-            imo: data[0].imo,
-            created_at: decoded.created_at,
-            vendor_username: data[0].vendor_username,
-          };
-          localStorage.setItem("profile", JSON.stringify(value));
-          setProfile(value);
-        }
-      } else {
-        console.log("Cache");
+  const { profile, loadProfile } = useProfile(token, refreshToken);
 
-        setProfile(profile1);
-      }
-    } catch (err) {
-      if (err.statusCode == 401) {
-        setAccesstoken();
-      }
-    }
-  };
+  const { offers, loadOffers, setOffers } = useOffers(token, refreshToken);
 
-  const setAccesstoken = async () => {
-    try {
-      const res = await fetch("http://localhost:8080/auth/refresh", {
-        method: "POST",
-        credentials: "include",
-      });
-      if (!res.ok) {
-        throw { statusCode: res.status };
-      } else {
-        const data = await res.json();
-        const accessToken = data.access;
-        setToken(accessToken);
-        const x = decodeToken(accessToken);
-        setDecoded(x);
-      }
-    } catch (err) {
-      if (err.statusCode == 401) navigate("/");
-    }
-  };
+  // init
   useEffect(() => {
-    setAccesstoken();
-  }, []);
+    refreshToken();
+  }, [refreshToken]);
 
+  // profile
   useEffect(() => {
-    loadProfile();
-  }, [decoded]);
+    if (!decoded) return;
+
+    loadProfile(decoded);
+  }, [decoded, loadProfile]);
+
+  // offers
+  useEffect(() => {
+    if (!profile?.uuid) return;
+
+    loadOffers(decoded);
+  }, [profile, decoded, loadOffers]);
+  const callRefresh = async () => {
+    await refreshOffers(token, decoded, setOffers);
+  };
   return (
     <div>
       ship
       <div className={styles.cont1}>
         <div>profile</div>
-        <div>UUID : {profile?.uuid}</div> {/* ✅ optional chaining */}
+
+        <div>UUID : {profile?.uuid}</div>
         <div>Username : {profile?.username}</div>
         <div>IMO : {profile?.imo}</div>
         <div>Vendor username : {profile?.vendor_username}</div>
@@ -103,20 +53,16 @@ export default function Admin() {
       </div>
       <div className={styles.cont1}>
         <div>offers</div>
-        <div>
-          {/* {offers.map((item) => (
-            <div key={item.offer_id}>
-              <p>Offer ID: {item.offer_id}</p>
-              <p>Vessel ID: {item.vessel_id}</p>
-              <p>Lat: {item.lat}</p>
-              <p>Lng: {item.lng}</p>
-              <p>Services: {item.services}</p>
-            </div>
-          ))} */}
-        </div>
-      </div>
-      <div className={styles.cont1}>
-        <div>requests</div>
+
+        {offers.map((item, index) => (
+          <div key={index} className={styles.cont1}>
+            <p>Offer ID: {item?.id}</p>
+            <p>Services: {item?.serv}</p>
+            <p>Status: {item?.status}</p>
+            <p>Created at: {item?.created_at}</p>
+          </div>
+        ))}
+        <button onClick={callRefresh}>refresh</button>
       </div>
     </div>
   );
