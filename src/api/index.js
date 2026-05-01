@@ -43,3 +43,7 @@ export const deleteOffer = (token, id) =>
     method: "DELETE",
     headers: { Authorization: `Bearer ${token}` },
   });
+export const logout = () => {
+  request(`${BASE}/auth/logout`, { method: "POST", credentials: "include" });
+  localStorage.clear();
+};

@@ -4,7 +4,6 @@ import { getRole } from "../services/decodeToken.js";
 import { useContext } from "react";
 import { Rcont } from "../context/Rcontext.jsx";
 import styles from "../modular_css/Login.module.css";
-
 export default function Login() {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
@@ -24,7 +23,6 @@ export default function Login() {
       });
       if (res.ok) {
         const data = await res.json();
-        console.log(data);
         setToken(data.access);
         const role = getRole(data.access);
         if (role == 0) {
@@ -49,7 +47,7 @@ export default function Login() {
       <div className={styles.loginCard}>
         <h1 className={styles.title}>Welcome Back</h1>
         <p className={styles.subtitle}>Please enter your details to sign in</p>
-        
+
         <form className={styles.form} onSubmit={handleSubmit}>
           <div className={styles.inputGroup}>
             <label className={styles.label}>username</label>
@@ -61,7 +59,7 @@ export default function Login() {
               required
             />
           </div>
-          
+
           <div className={styles.inputGroup}>
             <label className={styles.label}>password</label>
             <input
@@ -73,7 +71,7 @@ export default function Login() {
               required
             />
           </div>
-          
+
           <button className={styles.submitBtn} type="submit">
             Sign In
           </button>
@@ -82,4 +80,3 @@ export default function Login() {
     </div>
   );
 }
-
