@@ -1,21 +1,25 @@
+// services/decodeToken.js
 import { jwtDecode } from "jwt-decode";
-import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
 
-export const getRole = (token) => {
+export function decodeToken(token) {
   try {
-    const decode = jwtDecode(token);
-    return decode.role;
-  } catch (err) {
-    console.log(err.message);
-    return 0;
-  }
-};
-export const decodeToken = (token) => {
-  try {
-    const decode = jwtDecode(token);
-    return decode;
-  } catch (err) {
+    const payload = jwtDecode(token);
+    return {
+      uuid: payload.uuid,
+      username: payload.username,
+      role: payload.role,
+      created_at: payload.created_at,
+    };
+  } catch {
     return null;
   }
-};
+}
+
+export function getRole(token) {
+  try {
+    const payload = jwtDecode(token);
+    return payload?.role ?? null;
+  } catch {
+    return null;
+  }
+}

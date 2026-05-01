@@ -1,49 +1,16 @@
-import { useContext, useEffect } from "react";
-import { Rcont } from "../context/Rcontext.jsx";
-
 import styles from "./Ship.module.css";
-
-import { useAuthRefresh } from "../hooks/useAuthRefresh.js";
-import { useProfile } from "../hooks/useProfile.js";
-import { useOffers } from "../hooks/useOffers.js";
-import { refreshOffers } from "../services/refreshOffers.js";
+import { useShipData } from "../hooks/useShipdata.js";
 
 export default function Ship() {
-  const { token } = useContext(Rcont);
+  const { profile, offers, loading, refreshOffers } = useShipData();
 
-  const { decoded, refreshToken } = useAuthRefresh();
+  if (loading) return <div>Loading...</div>;
 
-  const { profile, loadProfile } = useProfile(token, refreshToken);
-
-  const { offers, loadOffers, setOffers } = useOffers(token, refreshToken);
-
-  // init
-  useEffect(() => {
-    refreshToken();
-  }, [refreshToken]);
-
-  // profile
-  useEffect(() => {
-    if (!decoded) return;
-
-    loadProfile(decoded);
-  }, [decoded, loadProfile]);
-
-  // offers
-  useEffect(() => {
-    if (!profile?.uuid) return;
-
-    loadOffers(decoded);
-  }, [profile, decoded, loadOffers]);
-  const callRefresh = async () => {
-    await refreshOffers(token, decoded, setOffers);
-  };
   return (
     <div>
       ship
       <div className={styles.cont1}>
         <div>profile</div>
-
         <div>UUID : {profile?.uuid}</div>
         <div>Username : {profile?.username}</div>
         <div>IMO : {profile?.imo}</div>
@@ -53,7 +20,6 @@ export default function Ship() {
       </div>
       <div className={styles.cont1}>
         <div>offers</div>
-
         {offers.map((item, index) => (
           <div key={index} className={styles.cont1}>
             <p>Offer ID: {item?.id}</p>
@@ -62,7 +28,7 @@ export default function Ship() {
             <p>Created at: {item?.created_at}</p>
           </div>
         ))}
-        <button onClick={callRefresh}>refresh</button>
+        <button onClick={refreshOffers}>refresh</button>
       </div>
     </div>
   );
