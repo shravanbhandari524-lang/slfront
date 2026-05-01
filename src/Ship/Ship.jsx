@@ -96,11 +96,22 @@ export default function Ship() {
 
         <button onClick={handlesubmitoffer}>create</button>
       </div>
-      <div>Requests : </div>
-      <div>
-        request are not done yet please wait motherfucker and shreyas if you are
-        reading this the curse i typed is not for you please dont take it
-        serously
+      <div className={styles.cont1}>
+        <div>update</div>
+      </div>
+      <div className={styles.cont1}>
+        <div>delete</div>
+      </div>
+      <div className={styles.cont1}>
+        <div>Requests : </div>
+        <div>
+          request are not done yet please wait motherfucker and shreyas if you
+          are reading this the curse i typed is not for you please dont take it
+          serously
+        </div>
+      </div>
+      <div className={styles.cont1}>
+        <div></div>
       </div>
       {/* LOGOUT */}
       <button onClick={handleLogout}>logout</button>
