@@ -13,11 +13,11 @@ export default function Ship() {
     setServices,
     profile,
     offers,
-    loading,
+    requests,
+    assignments,
     refreshOffers,
     handleCreateOffer,
     handleLogout,
-    handlesubmitoffer,
   } = useShipData();
 
   return (
@@ -56,7 +56,7 @@ export default function Ship() {
 
         {/* UUID (readonly display) */}
         <div>
-          <label>uuid : </label>
+          <label>ship uuid : </label>
           <input
             className={styles.inputbox}
             value={profile?.uuid || ""}
@@ -68,9 +68,11 @@ export default function Ship() {
         <div>
           <label>latitude : </label>
           <input
+            type="number"
             className={styles.input}
             value={lat}
             onChange={(e) => setLat(e.target.value)}
+            required
           />
         </div>
 
@@ -78,9 +80,11 @@ export default function Ship() {
         <div>
           <label>longitude : </label>
           <input
+            type="number"
             className={styles.input}
             value={lng}
             onChange={(e) => setLng(e.target.value)}
+            required
           />
         </div>
 
@@ -88,30 +92,157 @@ export default function Ship() {
         <div>
           <label>Services : </label>
           <input
+            type="text"
             className={styles.input}
             value={services}
             onChange={(e) => setServices(e.target.value)}
+            required
           />
         </div>
 
-        <button onClick={handlesubmitoffer}>create</button>
+        <button onClick={handleCreateOffer}>create</button>
       </div>
       <div className={styles.cont1}>
         <div>update</div>
+        <div>
+          <label>Enter offer uuid : </label>
+          <input />
+        </div>
+        <div>
+          <label>latitude : </label>
+          <input />
+        </div>
+        <div>
+          <label>Longitude : </label>
+          <input />
+        </div>
+        <div>
+          <label>Services : </label>
+          <input />
+        </div>
+        <button>update</button>
       </div>
       <div className={styles.cont1}>
         <div>delete</div>
+        <div>
+          <label>enter offer uuid :</label>
+          <input />
+        </div>
+        <div>
+          <label>confirm to delte : </label>
+          <input type="checkbox" />
+        </div>
+        <button>delete</button>
       </div>
       <div className={styles.cont1}>
         <div>Requests : </div>
-        <div>
-          request are not done yet please wait motherfucker and shreyas if you
-          are reading this the curse i typed is not for you please dont take it
-          serously
+        <div className={styles.cont1}>
+          <div>all request by this ships :</div>
+          <div>
+            {requests?.map((item, index) => (
+              <div key={index} className={styles.cont1}>
+                <p>Offer ID: {item?.id}</p>
+                <p>Services: {item?.serv}</p>
+                <p>Status: {item?.status}</p>
+                <p>Created at: {item?.created_at}</p>
+                <p>Latitude : {item?.lat}</p>
+                <p>Longitude : {item?.lng}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className={styles.cont1}>
+          <div>create</div>
+          <div>
+            <label>ship uuid : </label>
+            <input
+              className={styles.inputbox}
+              value={profile?.uuid || ""}
+              readOnly
+            />
+          </div>
+          <div>
+            <label>latitude : </label>
+            <input />
+          </div>
+          <div>
+            <label>longitude : </label>
+            <input />
+          </div>
+          <div>
+            <label>services : </label>
+            <input />
+          </div>
+        </div>
+        <div className={styles.cont1}>
+          <div>update</div>
+          <div>
+            <label>request uuid : </label>
+            <input />
+          </div>
+          <div>
+            <label>latitude : </label>
+            <input />
+          </div>
+          <div>
+            <label>longitude : </label>
+            <input />
+          </div>
+          <div>
+            <label>services : </label>
+            <input />
+          </div>
+        </div>
+        <div className={styles.cont1}>
+          <div>delete</div>
+          <div>
+            <label>enter request uuid :</label>
+            <input />
+          </div>
+          <div>
+            <label>confirm to delte : </label>
+            <input type="checkbox" />
+          </div>
+          <button>delete</button>
         </div>
       </div>
       <div className={styles.cont1}>
-        <div></div>
+        <div>assignements : </div>
+        <div className={styles.cont1}>
+          {" "}
+          {assignments?.map((item, index) => (
+            <div key={index} className={styles.cont1}>
+              <p>Offer ID: {item?.id}</p>
+              <p>request vessel id : {item?.request_vessel_id}</p>
+              <p>Services: {item?.serv}</p>
+              <p>Status: {item?.status}</p>
+              <p>assigned time : {item?.assigned_time}</p>
+              <p>completed time : {item?.completed_time}</p>
+              <p>Latitude : {item?.lat}</p>
+              <p>Longitude : {item?.lng}</p>
+            </div>
+          ))}
+        </div>
+        <div className={styles.cont1}>
+          <div>current assignement</div>
+          <div>
+            {" "}
+            <p>Offer ID: </p>
+            <p>request vessel id : </p>
+            <p>Services: </p>
+            <p>Status: </p>
+            <p>assigned time : </p>
+            <p>completed time : </p>
+            <p>Latitude : </p>
+            <p>Longitude : </p>
+          </div>
+          <div>
+            <label>choose staus of this assignment : </label>
+            <input type="checkbox" />
+            <input type="checkbox" />
+            <button>submit</button>
+          </div>
+        </div>
       </div>
       {/* LOGOUT */}
       <button onClick={handleLogout}>logout</button>

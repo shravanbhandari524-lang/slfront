@@ -16,6 +16,8 @@ export function useShipData() {
 
   const [profile, setProfile] = useState(null);
   const [offers, setOffers] = useState([]);
+  const [requests, setRequests] = useState([]);
+  const [assignments, setAssignments] = useState([]);
   const [token, setLocalToken] = useState(null);
   const [user, setUser] = useState(null);
 
@@ -29,7 +31,6 @@ export function useShipData() {
     const init = async () => {
       try {
         const { access } = await refreshAccessToken();
-
         setToken(access);
         setLocalToken(access);
 
@@ -43,8 +44,7 @@ export function useShipData() {
         if (cachedProfile) {
           profileData = JSON.parse(cachedProfile);
         } else {
-          const data = await getProfile(access, decoded.uuid);
-
+          const { data } = await getProfile(access, decoded.uuid);
           profileData = {
             uuid: decoded.uuid,
             username: decoded.username,
@@ -68,8 +68,10 @@ export function useShipData() {
           setOffers(data.data);
           localStorage.setItem("offers", JSON.stringify(data.data));
         }
-      } catch {
-        navigate("/");
+      } catch (err) {
+        if (err.statusCode == 401) {
+          await handleLogout();
+        }
       } finally {
         setLoading(false);
       }
@@ -79,42 +81,113 @@ export function useShipData() {
   }, [navigate, setToken]);
 
   const refreshOffers = async () => {
-    if (!token || !user) return;
+    try {
+      if (!token || !user) return;
 
-    const data = await getOffers(token, user.uuid);
-    setOffers(data.data);
-    localStorage.setItem("offers", JSON.stringify(data.data));
+      const data = await getOffers(token, user.uuid);
+      setOffers(data.data);
+      localStorage.setItem("offers", JSON.stringify(data.data));
+    } catch (err) {
+      if (err.statusCode == 401) {
+        const { access } = await refreshAccessToken();
+        setToken(access);
+        setLocalToken(access);
+
+        const decoded = decodeToken(access);
+        setUser(decoded);
+        const data = await getOffers(access, decoded.uuid);
+        setOffers(data.data);
+        localStorage.setItem("offers", JSON.stringify(data.data));
+      } else {
+        await handleLogout();
+      }
+    }
   };
+  const handleCreateOffer = async () => {
+    try {
+      if (!profile?.uuid) return;
 
-  const handleCreateOffer = async (value) => {
-    if (!token || !user) return;
+      const value = {
+        vessel_id: profile.uuid,
+        lat: Number(lat),
+        lng: Number(lng),
+        services,
+      };
 
-    await createOffer(token, value);
-    await refreshOffers();
+      if (!token || !user) return;
+
+      if (!value.lat || !value.lng || !value.services) {
+        alert("fill all data in creating offer");
+        return;
+      }
+
+      const data = await createOffer(token, value);
+
+      if (!data.success) {
+        alert("coordinates out of bound");
+        return;
+      }
+      console.log(data.data[0]);
+      setOffers((prev) => [
+        ...prev,
+        {
+          id: data.data[0].offer_id,
+          serv: data.data[0].services,
+          status: data.data[0].status,
+          created_at: data.data[0].created_at,
+          lat: data.data[0].lat,
+          lng: data.data[0].lng,
+        },
+      ]); // await refreshOffers();
+
+      setLat("");
+      setLng("");
+      setServices("");
+    } catch (err) {
+      if (err?.statusCode == 401) {
+        const { access } = await refreshAccessToken();
+
+        setToken(access);
+        setLocalToken(access);
+
+        const decoded = decodeToken(access);
+        setUser(decoded);
+
+        const value = {
+          vessel_id: profile.uuid,
+          lat: Number(lat),
+          lng: Number(lng),
+          services,
+        };
+
+        await createOffer(access, value);
+        await refreshOffers();
+
+        setLat("");
+        setLng("");
+        setServices("");
+      } else {
+        await handleLogout();
+      }
+    }
   };
-
-  const handlesubmitoffer = () => {
-    if (!profile?.uuid) return;
-
-    handleCreateOffer({
-      vessel_id: profile.uuid,
-      lat: Number(lat),
-      lng: Number(lng),
-      services,
-    });
-
-    setLat("");
-    setLng("");
-    setServices("");
+  const handleUpdateOffer = async () => {
+    try {
+    } catch (err) {
+      if (err.statusCode == 401) {
+      }
+    }
   };
-
   const handleLogout = async () => {
     try {
+      console.log("hit");
       await logout();
+
+      localStorage.clear();
     } catch (err) {
       console.error(err);
     } finally {
-      navigate("/login");
+      navigate("/");
     }
   };
 
@@ -127,10 +200,11 @@ export function useShipData() {
     setServices,
     profile,
     offers,
+    requests,
+    assignments,
     loading,
     refreshOffers,
     handleCreateOffer,
-    handlesubmitoffer,
     handleLogout,
   };
 }

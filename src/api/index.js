@@ -15,8 +15,11 @@ async function request(url, options = {}) {
   return res.json();
 }
 
-export const refreshAccessToken = () =>
-  request(`${BASE}/auth/refresh`, { method: "POST", credentials: "include" });
+export const refreshAccessToken = async () =>
+  request(`${BASE}/auth/refresh`, {
+    method: "POST",
+    credentials: "include",
+  });
 
 export const getProfile = (token, uuid) =>
   request(`${BASE}/ships/me/${uuid}`, {
@@ -37,13 +40,22 @@ export const createOffer = (token, body) =>
     },
     body: JSON.stringify(body),
   });
-
+export const updateOffer = (token, id, body) =>
+  request(`${BASE}/offers/` + id, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(body),
+  });
 export const deleteOffer = (token, id) =>
   request(`${BASE}/offers/${id}`, {
     method: "DELETE",
     headers: { Authorization: `Bearer ${token}` },
   });
-export const logout = () => {
-  request(`${BASE}/auth/logout`, { method: "POST", credentials: "include" });
-  localStorage.clear();
-};
+export const logout = async () =>
+  request(`${BASE}/auth/logout`, {
+    method: "POST",
+    credentials: "include",
+  });
