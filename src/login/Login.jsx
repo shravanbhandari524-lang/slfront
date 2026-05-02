@@ -5,6 +5,32 @@ import { useContext } from "react";
 import { Rcont } from "../context/Rcontext.jsx";
 import styles from "../modular_css/Login.module.css";
 
+function UserIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="8" r="4"/>
+      <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+    </svg>
+  );
+}
+
+function LockIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="11" width="18" height="11" rx="2"/>
+      <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+    </svg>
+  );
+}
+
+function ArrowRightIcon() {
+  return (
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M5 12h14M12 5l7 7-7 7"/>
+    </svg>
+  );
+}
+
 export default function Login() {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
@@ -46,6 +72,7 @@ export default function Login() {
   return (
     <div className={styles.container}>
       <div className={styles.loginCard}>
+
         <div className={styles.brand}>
           <div className={styles.brandIcon}>⚓</div>
           <span className={styles.brandName}>SEALINE</span>
@@ -57,34 +84,51 @@ export default function Login() {
         <div className={styles.divider} />
 
         <form className={styles.form} onSubmit={handleSubmit}>
+
           <div className={styles.inputGroup}>
-            <label className={styles.label}>Username</label>
-            <input
-              className={styles.input}
-              placeholder="Enter your username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-              autoComplete="username"
-            />
+            <label className={styles.label}>
+              <span className={styles.labelIcon}><UserIcon /></span>
+              Username
+            </label>
+            <div className={styles.inputWrapper}>
+              <span className={styles.inputIcon}><UserIcon /></span>
+              <input
+                className={styles.input}
+                placeholder="Enter your username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+                autoComplete="username"
+              />
+            </div>
           </div>
 
           <div className={styles.inputGroup}>
-            <label className={styles.label}>Password</label>
-            <input
-              className={styles.input}
-              type="password"
-              placeholder="Enter your password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              autoComplete="current-password"
-            />
+            <label className={styles.label}>
+              <span className={styles.labelIcon}><LockIcon /></span>
+              Password
+            </label>
+            <div className={styles.inputWrapper}>
+              <span className={styles.inputIcon}><LockIcon /></span>
+              <input
+                className={styles.input}
+                type="password"
+                placeholder="Enter your password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                autoComplete="current-password"
+              />
+            </div>
           </div>
 
           <button className={styles.submitBtn} type="submit">
-            Sign In
+            <span className={styles.btnText}>
+              Sign In
+              <span className={styles.btnArrow}><ArrowRightIcon /></span>
+            </span>
           </button>
+
         </form>
       </div>
     </div>
