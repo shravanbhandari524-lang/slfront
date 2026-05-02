@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getRole } from "../services/decodeToken.js";
 import { useContext } from "react";
 import { Rcont } from "../context/Rcontext.jsx";
 import styles from "../modular_css/Login.module.css";
+
 export default function Login() {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
@@ -45,23 +46,31 @@ export default function Login() {
   return (
     <div className={styles.container}>
       <div className={styles.loginCard}>
-        <h1 className={styles.title}>Welcome Back</h1>
-        <p className={styles.subtitle}>Please enter your details to sign in</p>
+        <div className={styles.brand}>
+          <div className={styles.brandIcon}>⚓</div>
+          <span className={styles.brandName}>NavOps</span>
+        </div>
+
+        <h1 className={styles.title}>Welcome back</h1>
+        <p className={styles.subtitle}>Sign in to your account to continue</p>
+
+        <div className={styles.divider} />
 
         <form className={styles.form} onSubmit={handleSubmit}>
           <div className={styles.inputGroup}>
-            <label className={styles.label}>username</label>
+            <label className={styles.label}>Username</label>
             <input
               className={styles.input}
               placeholder="Enter your username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               required
+              autoComplete="username"
             />
           </div>
 
           <div className={styles.inputGroup}>
-            <label className={styles.label}>password</label>
+            <label className={styles.label}>Password</label>
             <input
               className={styles.input}
               type="password"
@@ -69,6 +78,7 @@ export default function Login() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
+              autoComplete="current-password"
             />
           </div>
 
