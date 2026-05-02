@@ -1,4 +1,5 @@
-const BASE = "http://localhost:8080";
+const BASE =
+  " https://b0d1-2401-4900-8839-ae14-26c1-f776-2d36-d6bd.ngrok-free.app";
 
 async function request(url, options = {}) {
   const res = await fetch(url, options);

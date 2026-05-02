@@ -13,10 +13,19 @@ function StatusBadge({ status }) {
 
 export default function Ship() {
   const {
-    lat, lng, services,
-    setLat, setLng, setServices,
-    profile, offers, requests, assignments,
-    refreshOffers, handleCreateOffer, handleLogout,
+    lat,
+    lng,
+    services,
+    setLat,
+    setLng,
+    setServices,
+    profile,
+    offers,
+    requests,
+    assignments,
+    refreshOffers,
+    handleCreateOffer,
+    handleLogout,
   } = useShipData();
 
   const [deleteOfferId, setDeleteOfferId] = useState("");
@@ -52,7 +61,9 @@ export default function Ship() {
         {/* PAGE HEADER */}
         <div className={styles.pageHeader}>
           <h1 className={styles.pageTitle}>Ship Dashboard</h1>
-          <p className={styles.pageSubtitle}>Manage your vessel's offers, requests and assignments</p>
+          <p className={styles.pageSubtitle}>
+            Manage your vessel's offers, requests and assignments
+          </p>
         </div>
 
         {/* ── PROFILE ── */}
@@ -64,27 +75,44 @@ export default function Ship() {
             <div className={styles.profileGrid}>
               <div className={styles.profileField}>
                 <span className={styles.profileLabel}>Username</span>
-                <span className={styles.profileValue}>{profile?.username || "—"}</span>
+                <span className={styles.profileValue}>
+                  {profile?.username || "—"}
+                </span>
               </div>
               <div className={styles.profileField}>
                 <span className={styles.profileLabel}>IMO Number</span>
-                <span className={styles.profileValue}>{profile?.imo || "—"}</span>
+                <span className={styles.profileValue}>
+                  {profile?.imo || "—"}
+                </span>
               </div>
               <div className={styles.profileField}>
-                <span className={styles.profileLabel}>Vessel Type</span>
-                <span className={styles.profileValue}>{profile?.type || "—"}</span>
+                <span className={styles.profileLabel}>Role</span>
+                <span className={styles.profileValue}>
+                  {profile?.type || "—"}
+                </span>
               </div>
               <div className={styles.profileField}>
                 <span className={styles.profileLabel}>Vendor</span>
-                <span className={styles.profileValue}>{profile?.vendor_username || "—"}</span>
+                <span className={styles.profileValue}>
+                  {profile?.vendor_username || "—"}
+                </span>
               </div>
               <div className={styles.profileField}>
                 <span className={styles.profileLabel}>Created</span>
-                <span className={styles.profileValue}>{profile?.created_at ? new Date(profile.created_at).toLocaleDateString() : "—"}</span>
+                <span className={styles.profileValue}>
+                  {profile?.created_at
+                    ? new Date(profile.created_at).toLocaleDateString()
+                    : "—"}
+                </span>
               </div>
-              <div className={styles.profileField} style={{ gridColumn: "1 / -1" }}>
+              <div
+                className={styles.profileField}
+                style={{ gridColumn: "1 / -1" }}
+              >
                 <span className={styles.profileLabel}>UUID</span>
-                <span className={styles.profileValueMono}>{profile?.uuid || "—"}</span>
+                <span className={styles.profileValueMono}>
+                  {profile?.uuid || "—"}
+                </span>
               </div>
             </div>
           </div>
@@ -104,9 +132,13 @@ export default function Ship() {
                 {offers.map((item, index) => (
                   <div key={index} className={styles.offerCard}>
                     <div className={styles.offerMeta}>
-                      <span className={styles.offerService}>{item?.serv || "—"}</span>
+                      <span className={styles.offerService}>
+                        {item?.serv || "—"}
+                      </span>
                       <span className={styles.offerDetail}>
-                        {item?.created_at ? new Date(item.created_at).toLocaleString() : "—"}
+                        {item?.created_at
+                          ? new Date(item.created_at).toLocaleString()
+                          : "—"}
                       </span>
                       <span className={styles.offerCoords}>
                         {item?.lat}, {item?.lng}
@@ -133,9 +165,13 @@ export default function Ship() {
           </div>
           <div className={styles.card}>
             <div className={styles.formGrid}>
-              <div className={`${styles.formGroup} ${styles.formInputFullWidth}`}>
+              <div
+                className={`${styles.formGroup} ${styles.formInputFullWidth}`}
+              >
                 <label className={styles.formLabel}>Ship UUID</label>
-                <div className={styles.formInputReadonly}>{profile?.uuid || "—"}</div>
+                <div className={styles.formInputReadonly}>
+                  {profile?.uuid || "—"}
+                </div>
               </div>
               <div className={styles.formGroup}>
                 <label className={styles.formLabel}>Latitude</label>
@@ -159,7 +195,9 @@ export default function Ship() {
                   required
                 />
               </div>
-              <div className={`${styles.formGroup} ${styles.formInputFullWidth}`}>
+              <div
+                className={`${styles.formGroup} ${styles.formInputFullWidth}`}
+              >
                 <label className={styles.formLabel}>Services</label>
                 <input
                   type="text"
@@ -186,7 +224,9 @@ export default function Ship() {
           </div>
           <div className={styles.card}>
             <div className={styles.formGrid}>
-              <div className={`${styles.formGroup} ${styles.formInputFullWidth}`}>
+              <div
+                className={`${styles.formGroup} ${styles.formInputFullWidth}`}
+              >
                 <label className={styles.formLabel}>Offer UUID</label>
                 <input
                   type="text"
@@ -216,7 +256,9 @@ export default function Ship() {
                   onChange={(e) => setUpdateLng(e.target.value)}
                 />
               </div>
-              <div className={`${styles.formGroup} ${styles.formInputFullWidth}`}>
+              <div
+                className={`${styles.formGroup} ${styles.formInputFullWidth}`}
+              >
                 <label className={styles.formLabel}>Services</label>
                 <input
                   type="text"
@@ -240,7 +282,9 @@ export default function Ship() {
           </div>
           <div className={styles.card}>
             <div className={styles.formGrid}>
-              <div className={`${styles.formGroup} ${styles.formInputFullWidth}`}>
+              <div
+                className={`${styles.formGroup} ${styles.formInputFullWidth}`}
+              >
                 <label className={styles.formLabel}>Offer UUID</label>
                 <input
                   type="text"
@@ -261,7 +305,10 @@ export default function Ship() {
                 />
                 Confirm deletion
               </label>
-              <button className={styles.btnDanger} disabled={!deleteOfferConfirm}>
+              <button
+                className={styles.btnDanger}
+                disabled={!deleteOfferConfirm}
+              >
                 Delete Offer
               </button>
             </div>
@@ -276,15 +323,34 @@ export default function Ship() {
 
           {/* list */}
           <div className={styles.card}>
-            <p style={{ fontSize: "var(--font-xs)", color: "var(--text-muted)", marginBottom: "var(--space-4)", fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.06em" }}>All Requests</p>
+            <p
+              style={{
+                fontSize: "var(--font-xs)",
+                color: "var(--text-muted)",
+                marginBottom: "var(--space-4)",
+                fontWeight: 500,
+                textTransform: "uppercase",
+                letterSpacing: "0.06em",
+              }}
+            >
+              All Requests
+            </p>
             {requests && requests.length > 0 ? (
               <div className={styles.offersList}>
                 {requests.map((item, index) => (
                   <div key={index} className={styles.offerCard}>
                     <div className={styles.offerMeta}>
-                      <span className={styles.offerService}>{item?.serv || "—"}</span>
-                      <span className={styles.offerDetail}>{item?.created_at ? new Date(item.created_at).toLocaleString() : "—"}</span>
-                      <span className={styles.offerCoords}>{item?.lat}, {item?.lng}</span>
+                      <span className={styles.offerService}>
+                        {item?.serv || "—"}
+                      </span>
+                      <span className={styles.offerDetail}>
+                        {item?.created_at
+                          ? new Date(item.created_at).toLocaleString()
+                          : "—"}
+                      </span>
+                      <span className={styles.offerCoords}>
+                        {item?.lat}, {item?.lng}
+                      </span>
                     </div>
                     <div />
                     <StatusBadge status={item?.status} />
@@ -301,23 +367,58 @@ export default function Ship() {
 
           {/* create request */}
           <div className={styles.card}>
-            <p style={{ fontSize: "var(--font-xs)", color: "var(--text-muted)", marginBottom: "var(--space-4)", fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.06em" }}>Create Request</p>
+            <p
+              style={{
+                fontSize: "var(--font-xs)",
+                color: "var(--text-muted)",
+                marginBottom: "var(--space-4)",
+                fontWeight: 500,
+                textTransform: "uppercase",
+                letterSpacing: "0.06em",
+              }}
+            >
+              Create Request
+            </p>
             <div className={styles.formGrid}>
-              <div className={`${styles.formGroup} ${styles.formInputFullWidth}`}>
+              <div
+                className={`${styles.formGroup} ${styles.formInputFullWidth}`}
+              >
                 <label className={styles.formLabel}>Ship UUID</label>
-                <div className={styles.formInputReadonly}>{profile?.uuid || "—"}</div>
+                <div className={styles.formInputReadonly}>
+                  {profile?.uuid || "—"}
+                </div>
               </div>
               <div className={styles.formGroup}>
                 <label className={styles.formLabel}>Latitude</label>
-                <input type="number" className={styles.formInput} placeholder="e.g. 48.8566" value={reqLat} onChange={(e) => setReqLat(e.target.value)} />
+                <input
+                  type="number"
+                  className={styles.formInput}
+                  placeholder="e.g. 48.8566"
+                  value={reqLat}
+                  onChange={(e) => setReqLat(e.target.value)}
+                />
               </div>
               <div className={styles.formGroup}>
                 <label className={styles.formLabel}>Longitude</label>
-                <input type="number" className={styles.formInput} placeholder="e.g. 2.3522" value={reqLng} onChange={(e) => setReqLng(e.target.value)} />
+                <input
+                  type="number"
+                  className={styles.formInput}
+                  placeholder="e.g. 2.3522"
+                  value={reqLng}
+                  onChange={(e) => setReqLng(e.target.value)}
+                />
               </div>
-              <div className={`${styles.formGroup} ${styles.formInputFullWidth}`}>
+              <div
+                className={`${styles.formGroup} ${styles.formInputFullWidth}`}
+              >
                 <label className={styles.formLabel}>Services</label>
-                <input type="text" className={styles.formInput} placeholder="Required services" value={reqServices} onChange={(e) => setReqServices(e.target.value)} />
+                <input
+                  type="text"
+                  className={styles.formInput}
+                  placeholder="Required services"
+                  value={reqServices}
+                  onChange={(e) => setReqServices(e.target.value)}
+                />
               </div>
             </div>
             <div className={styles.formActions}>
@@ -327,23 +428,54 @@ export default function Ship() {
 
           {/* update request */}
           <div className={styles.card}>
-            <p style={{ fontSize: "var(--font-xs)", color: "var(--text-muted)", marginBottom: "var(--space-4)", fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.06em" }}>Update Request</p>
+            <p
+              style={{
+                fontSize: "var(--font-xs)",
+                color: "var(--text-muted)",
+                marginBottom: "var(--space-4)",
+                fontWeight: 500,
+                textTransform: "uppercase",
+                letterSpacing: "0.06em",
+              }}
+            >
+              Update Request
+            </p>
             <div className={styles.formGrid}>
-              <div className={`${styles.formGroup} ${styles.formInputFullWidth}`}>
+              <div
+                className={`${styles.formGroup} ${styles.formInputFullWidth}`}
+              >
                 <label className={styles.formLabel}>Request UUID</label>
-                <input type="text" className={styles.formInput} placeholder="Enter request UUID" />
+                <input
+                  type="text"
+                  className={styles.formInput}
+                  placeholder="Enter request UUID"
+                />
               </div>
               <div className={styles.formGroup}>
                 <label className={styles.formLabel}>Latitude</label>
-                <input type="number" className={styles.formInput} placeholder="New latitude" />
+                <input
+                  type="number"
+                  className={styles.formInput}
+                  placeholder="New latitude"
+                />
               </div>
               <div className={styles.formGroup}>
                 <label className={styles.formLabel}>Longitude</label>
-                <input type="number" className={styles.formInput} placeholder="New longitude" />
+                <input
+                  type="number"
+                  className={styles.formInput}
+                  placeholder="New longitude"
+                />
               </div>
-              <div className={`${styles.formGroup} ${styles.formInputFullWidth}`}>
+              <div
+                className={`${styles.formGroup} ${styles.formInputFullWidth}`}
+              >
                 <label className={styles.formLabel}>Services</label>
-                <input type="text" className={styles.formInput} placeholder="Updated services" />
+                <input
+                  type="text"
+                  className={styles.formInput}
+                  placeholder="Updated services"
+                />
               </div>
             </div>
             <div className={styles.formActions}>
@@ -353,19 +485,45 @@ export default function Ship() {
 
           {/* delete request */}
           <div className={styles.card}>
-            <p style={{ fontSize: "var(--font-xs)", color: "var(--text-muted)", marginBottom: "var(--space-4)", fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.06em" }}>Delete Request</p>
+            <p
+              style={{
+                fontSize: "var(--font-xs)",
+                color: "var(--text-muted)",
+                marginBottom: "var(--space-4)",
+                fontWeight: 500,
+                textTransform: "uppercase",
+                letterSpacing: "0.06em",
+              }}
+            >
+              Delete Request
+            </p>
             <div className={styles.formGrid}>
-              <div className={`${styles.formGroup} ${styles.formInputFullWidth}`}>
+              <div
+                className={`${styles.formGroup} ${styles.formInputFullWidth}`}
+              >
                 <label className={styles.formLabel}>Request UUID</label>
-                <input type="text" className={styles.formInput} placeholder="Enter request UUID to delete" value={deleteReqId} onChange={(e) => setDeleteReqId(e.target.value)} />
+                <input
+                  type="text"
+                  className={styles.formInput}
+                  placeholder="Enter request UUID to delete"
+                  value={deleteReqId}
+                  onChange={(e) => setDeleteReqId(e.target.value)}
+                />
               </div>
             </div>
             <div className={styles.formActions}>
               <label className={styles.checkboxLabel}>
-                <input type="checkbox" className={styles.checkboxInput} checked={deleteReqConfirm} onChange={(e) => setDeleteReqConfirm(e.target.checked)} />
+                <input
+                  type="checkbox"
+                  className={styles.checkboxInput}
+                  checked={deleteReqConfirm}
+                  onChange={(e) => setDeleteReqConfirm(e.target.checked)}
+                />
                 Confirm deletion
               </label>
-              <button className={styles.btnDanger} disabled={!deleteReqConfirm}>Delete Request</button>
+              <button className={styles.btnDanger} disabled={!deleteReqConfirm}>
+                Delete Request
+              </button>
             </div>
           </div>
         </section>
@@ -382,7 +540,9 @@ export default function Ship() {
                   <div key={index} className={styles.assignmentCard}>
                     <div className={styles.assignmentField}>
                       <span className={styles.assignmentLabel}>Offer ID</span>
-                      <span className={styles.assignmentValue}>{item?.id || "—"}</span>
+                      <span className={styles.assignmentValue}>
+                        {item?.id || "—"}
+                      </span>
                     </div>
                     <div className={styles.assignmentField}>
                       <span className={styles.assignmentLabel}>Status</span>
@@ -390,23 +550,41 @@ export default function Ship() {
                     </div>
                     <div className={styles.assignmentField}>
                       <span className={styles.assignmentLabel}>Services</span>
-                      <span className={styles.assignmentValue}>{item?.serv || "—"}</span>
+                      <span className={styles.assignmentValue}>
+                        {item?.serv || "—"}
+                      </span>
                     </div>
                     <div className={styles.assignmentField}>
-                      <span className={styles.assignmentLabel}>Request Vessel</span>
-                      <span className={styles.assignmentValue}>{item?.request_vessel_id || "—"}</span>
+                      <span className={styles.assignmentLabel}>
+                        Request Vessel
+                      </span>
+                      <span className={styles.assignmentValue}>
+                        {item?.request_vessel_id || "—"}
+                      </span>
                     </div>
                     <div className={styles.assignmentField}>
                       <span className={styles.assignmentLabel}>Assigned</span>
-                      <span className={styles.assignmentValue}>{item?.assigned_time ? new Date(item.assigned_time).toLocaleString() : "—"}</span>
+                      <span className={styles.assignmentValue}>
+                        {item?.assigned_time
+                          ? new Date(item.assigned_time).toLocaleString()
+                          : "—"}
+                      </span>
                     </div>
                     <div className={styles.assignmentField}>
                       <span className={styles.assignmentLabel}>Completed</span>
-                      <span className={styles.assignmentValue}>{item?.completed_time ? new Date(item.completed_time).toLocaleString() : "—"}</span>
+                      <span className={styles.assignmentValue}>
+                        {item?.completed_time
+                          ? new Date(item.completed_time).toLocaleString()
+                          : "—"}
+                      </span>
                     </div>
                     <div className={styles.assignmentField}>
-                      <span className={styles.assignmentLabel}>Coordinates</span>
-                      <span className={styles.assignmentValue}>{item?.lat}, {item?.lng}</span>
+                      <span className={styles.assignmentLabel}>
+                        Coordinates
+                      </span>
+                      <span className={styles.assignmentValue}>
+                        {item?.lat}, {item?.lng}
+                      </span>
                     </div>
                   </div>
                 ))}
@@ -421,7 +599,18 @@ export default function Ship() {
 
           {/* current assignment status update */}
           <div className={styles.card}>
-            <p style={{ fontSize: "var(--font-xs)", color: "var(--text-muted)", marginBottom: "var(--space-4)", fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.06em" }}>Update Assignment Status</p>
+            <p
+              style={{
+                fontSize: "var(--font-xs)",
+                color: "var(--text-muted)",
+                marginBottom: "var(--space-4)",
+                fontWeight: 500,
+                textTransform: "uppercase",
+                letterSpacing: "0.06em",
+              }}
+            >
+              Update Assignment Status
+            </p>
             <div className={styles.formActions}>
               <label className={styles.checkboxLabel}>
                 <input type="checkbox" className={styles.checkboxInput} />
