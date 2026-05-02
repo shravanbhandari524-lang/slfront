@@ -48,7 +48,7 @@ export default function Login() {
       <div className={styles.loginCard}>
         <div className={styles.brand}>
           <div className={styles.brandIcon}>⚓</div>
-          <span className={styles.brandName}>NavOps</span>
+          <span className={styles.brandName}>SEALINE</span>
         </div>
 
         <h1 className={styles.title}>Welcome back</h1>

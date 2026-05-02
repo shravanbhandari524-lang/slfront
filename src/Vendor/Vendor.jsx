@@ -21,7 +21,7 @@ export default function Vendor() {
       <nav className={styles.nav}>
         <div className={styles.navBrand}>
           <div className={styles.navIcon}>⚓</div>
-          <span className={styles.navTitle}>NavOps</span>
+          <span className={styles.navTitle}>SEALINE</span>
         </div>
         <div className={styles.navRight}>
           <span className={styles.navRole}>Vendor</span>
