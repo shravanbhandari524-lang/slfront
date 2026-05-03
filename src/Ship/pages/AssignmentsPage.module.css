@@ -3,8 +3,8 @@
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: var(--space-6);
-  padding: 0 0 0 var(--space-5);
+  gap: var(--space-7);
+  padding: 0 0 0 var(--space-7);
 }
 
 .fadeIn {
@@ -17,11 +17,11 @@
 }
 
 .sectionTitle {
-  font-size: var(--font-lg);
+  font-size: var(--font-base);
   font-weight: 700;
   color: var(--text-primary);
   letter-spacing: -0.02em;
-  margin-bottom: var(--space-5);
+  margin-bottom: var(--space-4);
   display: flex;
   align-items: center;
   gap: var(--space-3);
@@ -30,10 +30,11 @@
 .sectionTitle::before {
   content: '';
   width: 3px;
-  height: 20px;
+  height: 18px;
   border-radius: var(--radius-full);
+  flex-shrink: 0;
   background: linear-gradient(180deg, #93c5fd, #3b82f6, #2563eb);
-  box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+  box-shadow: 0 0 9px rgba(59, 130, 246, 0.5);
 }
 
 /* ── TIMELINE ── */
@@ -128,7 +129,7 @@
 .progressBar {
   display: flex;
   align-items: flex-start;
-  padding: var(--space-5) var(--space-6);
+  padding: var(--space-5) var(--space-6) var(--space-9);
   gap: 0;
 }
 
@@ -328,10 +329,11 @@
 }
 
 .formCardBody {
-  padding: 0 var(--space-6) var(--space-6);
+  padding: var(--space-6) var(--space-6) var(--space-7);
   display: flex;
   flex-direction: column;
   gap: var(--space-5);
+  max-width: 680px;
 }
 
 .formSection {
@@ -352,12 +354,11 @@
   background: rgba(8, 12, 22, 0.72);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: var(--radius-md);
-  padding: 12px var(--space-4);
+  padding: 11px var(--space-4);
   color: var(--text-primary);
   font-size: var(--font-sm);
   outline: none;
   width: 100%;
-  max-width: 440px;
   backdrop-filter: blur(8px);
   box-shadow:
     0 1px 0 rgba(255,255,255,0.04) inset,
@@ -509,8 +510,12 @@
   box-shadow: 0 2px 14px rgba(0,0,0,0.28);
 }
 
+@media (max-width: 900px) {
+  .main { padding: 0 0 0 var(--space-5); }
+}
 @media (max-width: 768px) {
   .main { padding: 0; }
   .assignGrid { grid-template-columns: 1fr; }
   .statusOptions { grid-template-columns: 1fr; }
+  .formCardBody { max-width: 100%; padding: var(--space-5); }
 }
