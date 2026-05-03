@@ -1,5 +1,5 @@
 const BASE =
-  " https://b0d1-2401-4900-8839-ae14-26c1-f776-2d36-d6bd.ngrok-free.app";
+  "https://d6cf-2401-4900-892f-96e2-66f8-11f5-3641-5022.ngrok-free.app";
 
 async function request(url, options = {}) {
   const res = await fetch(url, options);
@@ -55,8 +55,10 @@ export const deleteOffer = (token, id) =>
     method: "DELETE",
     headers: { Authorization: `Bearer ${token}` },
   });
-export const logout = async () =>
-  request(`${BASE}/auth/logout`, {
+export const logout = async () => {
+  await request(`${BASE}/auth/logout`, {
     method: "POST",
     credentials: "include",
   });
+  localStorage.clear();
+};

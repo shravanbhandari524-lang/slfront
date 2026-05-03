@@ -33,10 +33,8 @@ export function useShipData() {
         const { access } = await refreshAccessToken();
         setToken(access);
         setLocalToken(access);
-
         const decoded = decodeToken(access);
         setUser(decoded);
-
         const cachedProfile = localStorage.getItem("profile");
 
         let profileData;
@@ -56,7 +54,6 @@ export function useShipData() {
 
           localStorage.setItem("profile", JSON.stringify(profileData));
         }
-
         setProfile(profileData);
 
         const cachedOffers = localStorage.getItem("offers");
@@ -71,6 +68,8 @@ export function useShipData() {
       } catch (err) {
         if (err.statusCode == 401) {
           await handleLogout();
+        } else {
+          await handleLogout();
         }
       } finally {
         setLoading(false);
@@ -78,7 +77,7 @@ export function useShipData() {
     };
 
     init();
-  }, [navigate, setToken]);
+  }, []);
 
   const refreshOffers = async () => {
     try {
@@ -127,7 +126,6 @@ export function useShipData() {
         alert("coordinates out of bound");
         return;
       }
-      console.log(data.data[0]);
       setOffers((prev) => [
         ...prev,
         {
@@ -180,7 +178,6 @@ export function useShipData() {
   };
   const handleLogout = async () => {
     try {
-      console.log("hit");
       await logout();
 
       localStorage.clear();
