@@ -4,17 +4,15 @@ async function request(url, options = {}) {
   const res = await fetch(url, {
     ...options,
     headers: {
-      "ngrok-skip-browser-warning": "true",
       ...options.headers,
     },
   });
 
   if (res.status === 401) {
     try {
-      const refreshed = await fetch(`/api/auth/refresh`, {
+      const refreshed = await fetch(`${BASE}/auth/refresh`, {
         method: "POST",
         credentials: "include",
-        headers: { "ngrok-skip-browser-warning": "true" },
       });
       if (!refreshed.ok) throw new Error("refresh failed");
 
@@ -23,7 +21,6 @@ async function request(url, options = {}) {
       const retry = await fetch(url, {
         ...options,
         headers: {
-          "ngrok-skip-browser-warning": "true",
           ...options.headers,
           Authorization: `Bearer ${access}`,
         },
@@ -51,7 +48,7 @@ async function request(url, options = {}) {
 }
 
 export const loginUser = (username, password) =>
-  request(`/auth/login`, {
+  request(`${BASE}/auth/login`, {
     method: "POST",
     credentials: "include",
     headers: { "Content-Type": "application/json" },
@@ -59,23 +56,23 @@ export const loginUser = (username, password) =>
   });
 
 export const refreshAccessToken = () =>
-  request(`/api/auth/refresh`, {
+  request(`${BASE}/auth/refresh`, {
     method: "POST",
     credentials: "include",
   });
 
 export const getProfile = (token, uuid) =>
-  request(`/api/ships/me/${uuid}`, {
+  request(`${BASE}/ships/me/${uuid}`, {
     headers: { Authorization: `Bearer ${token}` },
   });
 
 export const getOffers = (token, uuid) =>
-  request(`/api/offers/getOffers/${uuid}`, {
+  request(`${BASE}/offers/getOffers/${uuid}`, {
     headers: { Authorization: `Bearer ${token}` },
   });
 
 export const createOffer = (token, body) =>
-  request(`/api/offers`, {
+  request(`${BASE}/offers`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -85,7 +82,7 @@ export const createOffer = (token, body) =>
   });
 
 export const updateOffer = (token, id, body) =>
-  request(`/api/offers/` + id, {
+  request(`${BASE}/offers/` + id, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -95,13 +92,13 @@ export const updateOffer = (token, id, body) =>
   });
 
 export const deleteOffer = (token, id) =>
-  request(`/api/offers/${id}`, {
+  request(`${BASE}/offers/${id}`, {
     method: "DELETE",
     headers: { Authorization: `Bearer ${token}` },
   });
 
 export const logout = () =>
-  request(`/api/auth/logout`, {
+  request(`${BASE}/auth/logout`, {
     method: "POST",
     credentials: "include",
   });
