@@ -84,9 +84,9 @@ export default function DashboardLayout({ activeTab, onTabChange, onLogout, chil
           </div>
           <h1 className={styles.pageTitle}>
             {ActiveIcon && (
-              <span className={styles.pageTitleIcon}><ActiveIcon size={22} /></span>
+              <span className={styles.pageTitleIcon}><ActiveIcon size={24} /></span>
             )}
-            {activeTabData?.label}
+            <span className={styles.pageTitleText}>{activeTabData?.label}</span>
           </h1>
           <p className={styles.pageSubtitle}>
             {activeTabData?.key === "profile"     && "Manage your vessel and account information"}

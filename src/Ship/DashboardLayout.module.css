@@ -1,13 +1,13 @@
 /* ═══════════════════════════════════════════════
    SEALINE — DashboardLayout
-   nav: 64px  |  subNav: 68px  |  total sticky: 132px
+   nav: 76px  |  subNav: 68px  |  total sticky: 144px
    ═══════════════════════════════════════════════ */
 
 :root {
-  --nav-h:       64px;
+  --nav-h:       76px;
   --subnav-h:    68px;
-  --sticky-h:    132px;
-  --gutter:      clamp(20px, 3vw, 40px);
+  --sticky-h:    144px;
+  --gutter:      clamp(24px, 3.5vw, 48px);
   --content-max: 1480px;
 }
 
@@ -67,13 +67,14 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 var(--gutter);
-  background: rgba(7,10,19,0.84);
-  backdrop-filter: blur(36px) saturate(210%);
-  -webkit-backdrop-filter: blur(36px) saturate(210%);
-  border-bottom: 1px solid rgba(255,255,255,0.055);
+  background: rgba(6,9,18,0.88);
+  backdrop-filter: blur(48px) saturate(240%);
+  -webkit-backdrop-filter: blur(48px) saturate(240%);
+  border-bottom: 1px solid rgba(255,255,255,0.062);
   box-shadow:
-    0 8px 32px rgba(0,0,0,0.52),
-    0 1px 0 rgba(59,130,246,0.14);
+    0 1px 0 rgba(255,255,255,0.08) inset,
+    0 12px 44px rgba(0,0,0,0.6),
+    0 1px 0 rgba(59,130,246,0.18);
 }
 
 /* Top bevel highlight */
@@ -338,25 +339,31 @@
 .pageTitle {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: var(--font-2xl);
-  font-weight: 800;
-  color: var(--text-primary);
-  letter-spacing: -0.035em;
+  gap: 12px;
+  font-size: var(--font-3xl);
+  font-weight: 900;
+  letter-spacing: -0.04em;
   line-height: 1.1;
 }
 .pageTitleIcon {
   display: flex;
   align-items: center;
   color: var(--text-accent);
-  filter: drop-shadow(0 0 10px rgba(59,130,246,0.45));
+  filter: drop-shadow(0 0 12px rgba(59,130,246,0.5));
   flex-shrink: 0;
+}
+.pageTitleText {
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 22%, #bfdbfe 58%, #60a5fa 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 .pageSubtitle {
   font-size: var(--font-sm);
-  color: var(--text-secondary);
-  font-weight: 400;
+  color: rgba(148,163,184,0.8);
+  font-weight: 500;
   line-height: 1.5;
+  margin-top: 2px;
 }
 
 /* ══════════════════════════════════════
@@ -382,9 +389,9 @@
    ══════════════════════════════════════ */
 @media (max-width: 768px) {
   :root {
-    --nav-h:    56px;
+    --nav-h:    64px;
     --subnav-h: 60px;
-    --sticky-h: 116px;
+    --sticky-h: 124px;
   }
   .nav { padding: 0 var(--space-5); }
   .tab { padding: 7px 14px; }

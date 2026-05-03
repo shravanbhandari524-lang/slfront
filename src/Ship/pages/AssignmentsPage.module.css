@@ -17,11 +17,11 @@
 }
 
 .sectionTitle {
-  font-size: var(--font-base);
-  font-weight: 700;
+  font-size: var(--font-lg);
+  font-weight: 800;
   color: var(--text-primary);
-  letter-spacing: -0.02em;
-  margin-bottom: var(--space-4);
+  letter-spacing: -0.025em;
+  margin-bottom: var(--space-5);
   display: flex;
   align-items: center;
   gap: var(--space-3);
@@ -30,11 +30,11 @@
 .sectionTitle::before {
   content: '';
   width: 3px;
-  height: 18px;
+  height: 20px;
   border-radius: var(--radius-full);
   flex-shrink: 0;
   background: linear-gradient(180deg, #93c5fd, #3b82f6, #2563eb);
-  box-shadow: 0 0 9px rgba(59, 130, 246, 0.5);
+  box-shadow: 0 0 12px rgba(59, 130, 246, 0.55);
 }
 
 /* ── TIMELINE ── */
@@ -47,20 +47,20 @@
 /* ── ASSIGNMENT CARD ── */
 .assignCard {
   position: relative;
-  background: rgba(14, 20, 32, 0.75);
-  backdrop-filter: blur(22px) saturate(145%);
-  -webkit-backdrop-filter: blur(22px) saturate(145%);
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: linear-gradient(145deg, rgba(18,26,48,0.78) 0%, rgba(14,20,34,0.84) 45%);
+  backdrop-filter: blur(28px) saturate(165%);
+  -webkit-backdrop-filter: blur(28px) saturate(165%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: var(--radius-xl);
   overflow: hidden;
   display: flex;
   flex-direction: column;
   transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
   box-shadow:
-    0 0 0 0.5px rgba(255,255,255,0.05) inset,
-    0 2px 0 rgba(255,255,255,0.07) inset,
-    0 16px 48px rgba(0,0,0,0.5),
-    0 0 28px rgba(59,130,246,0.05);
+    0 0 0 0.5px rgba(255,255,255,0.06) inset,
+    0 2px 0 rgba(255,255,255,0.08) inset,
+    0 16px 48px rgba(0,0,0,0.52),
+    0 0 32px rgba(59,130,246,0.07);
 }
 
 .assignCard::before {
@@ -68,7 +68,7 @@
   position: absolute;
   top: 0; left: 8%; right: 8%;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(96, 165, 250, 0.48), rgba(59, 130, 246, 0.26), transparent);
+  background: linear-gradient(90deg, transparent, rgba(96, 165, 250, 0.52), rgba(59, 130, 246, 0.3), transparent);
   pointer-events: none;
 }
 
@@ -77,24 +77,24 @@
   position: absolute;
   top: 0; left: 0;
   width: 1px; height: 55%;
-  background: linear-gradient(180deg, rgba(96, 165, 250, 0.24), transparent);
+  background: linear-gradient(180deg, rgba(96, 165, 250, 0.26), transparent);
   pointer-events: none;
 }
 
 .assignCard:hover {
   transform: translateY(-3px);
-  border-color: rgba(59, 130, 246, 0.2);
+  border-color: rgba(59, 130, 246, 0.22);
   box-shadow:
-    0 0 0 0.5px rgba(255,255,255,0.07) inset,
-    0 2px 0 rgba(255,255,255,0.09) inset,
-    0 24px 64px rgba(0,0,0,0.58),
-    0 0 44px rgba(59,130,246,0.11);
+    0 0 0 0.5px rgba(255,255,255,0.08) inset,
+    0 2px 0 rgba(255,255,255,0.1) inset,
+    0 24px 64px rgba(0,0,0,0.6),
+    0 0 50px rgba(59,130,246,0.13);
 }
 
 /* Left accent border based on status */
-.statusBorderPending   { border-left: 2px solid rgba(245, 158, 11, 0.4) !important; }
-.statusBorderAssigned  { border-left: 2px solid rgba(59, 130, 246, 0.5) !important; }
-.statusBorderCompleted { border-left: 2px solid rgba(34, 197, 94, 0.5) !important; }
+.statusBorderPending   { border-left: 2px solid rgba(245, 158, 11, 0.45) !important; }
+.statusBorderAssigned  { border-left: 2px solid rgba(59, 130, 246, 0.55) !important; }
+.statusBorderCompleted { border-left: 2px solid rgba(34, 197, 94, 0.55) !important; }
 
 /* ── CARD HEADER STRIP ── */
 .cardHeaderStrip {
@@ -102,8 +102,8 @@
   align-items: center;
   justify-content: space-between;
   padding: var(--space-4) var(--space-6) var(--space-3);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  background: rgba(255, 255, 255, 0.02);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.055);
+  background: rgba(255, 255, 255, 0.025);
 }
 
 .cardHeaderLeft {
@@ -113,16 +113,17 @@
 }
 
 .cardHeaderIcon {
-  font-size: 18px;
-  filter: drop-shadow(0 0 6px rgba(59, 130, 246, 0.25));
+  display: flex; align-items: center;
+  color: var(--text-accent);
+  filter: drop-shadow(0 0 6px rgba(59, 130, 246, 0.3));
 }
 
 .cardHeaderId {
   font-size: var(--font-xs);
-  font-weight: 600;
-  color: var(--text-muted);
+  font-weight: 700;
+  color: rgba(148,163,184,0.75);
   font-family: 'SF Mono', 'Fira Code', monospace;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
 }
 
 /* ── PROGRESS BAR ── */
@@ -150,8 +151,8 @@
 }
 
 .progressDot {
-  width: 28px;
-  height: 28px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.04);
   border: 2px solid rgba(255, 255, 255, 0.1);
@@ -169,8 +170,8 @@
   border-color: var(--status-active);
   color: var(--status-active);
   box-shadow:
-    0 0 18px rgba(34, 197, 94, 0.45),
-    0 0 36px rgba(34, 197, 94, 0.18);
+    0 0 20px rgba(34, 197, 94, 0.5),
+    0 0 40px rgba(34, 197, 94, 0.2);
 }
 
 .progressLabel {
@@ -178,7 +179,7 @@
   font-weight: 500;
   color: var(--text-muted);
   position: absolute;
-  top: 36px;
+  top: 38px;
   left: 0;
   white-space: nowrap;
   letter-spacing: 0.02em;
@@ -186,13 +187,13 @@
 
 .progressLabelActive {
   color: var(--text-primary);
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .progressLine {
   position: absolute;
-  top: 13px;
-  left: 28px;
+  top: 14px;
+  left: 30px;
   right: 0;
   height: 2px;
   background: rgba(255, 255, 255, 0.07);
@@ -202,13 +203,13 @@
 
 .progressLineActive {
   background: linear-gradient(90deg, var(--status-active), rgba(34, 197, 94, 0.35));
-  box-shadow: 0 0 8px rgba(34, 197, 94, 0.3);
+  box-shadow: 0 0 8px rgba(34, 197, 94, 0.32);
 }
 
 /* ── ASSIGN GRID ── */
 .assignGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(195px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: var(--space-4) var(--space-5);
   padding: var(--space-2) var(--space-6) var(--space-5);
 }
@@ -221,16 +222,16 @@
 
 .assignLabel {
   font-size: 0.68rem;
-  font-weight: 600;
-  color: var(--text-muted);
+  font-weight: 700;
+  color: rgba(148,163,184,0.75);
   text-transform: uppercase;
-  letter-spacing: 0.07em;
+  letter-spacing: 0.08em;
 }
 
 .assignValue {
   font-size: var(--font-sm);
   color: var(--text-primary);
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .assignValueMono {
@@ -238,10 +239,10 @@
   color: var(--text-secondary);
   font-family: 'SF Mono', 'Fira Code', monospace;
   word-break: break-all;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 5px;
-  padding: 3px 7px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 6px;
+  padding: 4px 8px;
   display: inline-block;
 }
 
@@ -253,41 +254,41 @@
 
 .tag {
   display: inline-flex;
-  padding: 3px 9px;
+  padding: 3px 10px;
   border-radius: var(--radius-full);
-  background: rgba(59, 130, 246, 0.09);
-  border: 1px solid rgba(59, 130, 246, 0.18);
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.2);
   color: var(--text-accent);
   font-size: var(--font-xs);
-  font-weight: 500;
-  box-shadow: 0 0 8px rgba(59, 130, 246, 0.06);
+  font-weight: 600;
+  box-shadow: 0 0 8px rgba(59, 130, 246, 0.07);
 }
 
 .assignActions {
   display: flex;
   justify-content: flex-end;
   padding: var(--space-3) var(--space-6) var(--space-5);
-  border-top: 1px solid rgba(255, 255, 255, 0.04);
+  border-top: 1px solid rgba(255, 255, 255, 0.045);
   gap: var(--space-3);
 }
 
 /* ── FORM CARD ── */
 .formCard {
   position: relative;
-  background: rgba(14, 20, 32, 0.78);
-  backdrop-filter: blur(28px) saturate(150%);
-  -webkit-backdrop-filter: blur(28px) saturate(150%);
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: linear-gradient(145deg, rgba(18,28,54,0.82) 0%, rgba(14,20,36,0.9) 38%);
+  backdrop-filter: blur(32px) saturate(175%);
+  -webkit-backdrop-filter: blur(32px) saturate(175%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: var(--radius-xl);
   overflow: hidden;
   display: flex;
   flex-direction: column;
   gap: var(--space-6);
   box-shadow:
-    0 0 0 0.5px rgba(255,255,255,0.05) inset,
-    0 2px 0 rgba(255,255,255,0.07) inset,
-    0 24px 72px rgba(0,0,0,0.6),
-    0 0 48px rgba(59,130,246,0.07);
+    0 0 0 0.5px rgba(255,255,255,0.06) inset,
+    0 2px 0 rgba(255,255,255,0.09) inset,
+    0 24px 72px rgba(0,0,0,0.62),
+    0 0 56px rgba(59,130,246,0.09);
 }
 
 .formCard::before {
@@ -295,7 +296,7 @@
   position: absolute;
   top: 0; left: 8%; right: 8%;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(96, 165, 250, 0.55), rgba(59, 130, 246, 0.3), transparent);
+  background: linear-gradient(90deg, transparent, rgba(96, 165, 250, 0.6), rgba(59, 130, 246, 0.35), transparent);
   pointer-events: none;
 }
 
@@ -304,36 +305,36 @@
   position: absolute;
   top: 0; left: 0;
   width: 1px; height: 60%;
-  background: linear-gradient(180deg, rgba(96, 165, 250, 0.28), transparent);
+  background: linear-gradient(180deg, rgba(96, 165, 250, 0.3), transparent);
   pointer-events: none;
 }
 
 .formCardHeader {
-  padding: var(--space-4) var(--space-6);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  background: rgba(59, 130, 246, 0.04);
+  padding: var(--space-5) var(--space-7);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.055);
+  background: rgba(59, 130, 246, 0.045);
   display: flex;
   align-items: center;
   gap: var(--space-3);
 }
 
 .formCardHeaderIcon {
-  font-size: 18px;
-  filter: drop-shadow(0 0 6px rgba(59, 130, 246, 0.3));
+  display: flex; align-items: center;
+  color: var(--text-accent);
+  filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.35));
 }
 
 .formCardHeaderTitle {
-  font-size: var(--font-sm);
-  font-weight: 700;
+  font-size: var(--font-base);
+  font-weight: 800;
   color: var(--text-primary);
 }
 
 .formCardBody {
-  padding: var(--space-6) var(--space-6) var(--space-7);
+  padding: var(--space-7) var(--space-7) var(--space-8);
   display: flex;
   flex-direction: column;
   gap: var(--space-5);
-  max-width: 680px;
 }
 
 .formSection {
@@ -344,39 +345,47 @@
 
 .formSectionLabel {
   font-size: 0.68rem;
-  font-weight: 600;
-  color: var(--text-muted);
+  font-weight: 700;
+  color: rgba(148,163,184,0.88);
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
+  margin-bottom: 3px;
 }
 
+/* ── GLASSMORPHIC INPUTS ── */
 .formInput {
-  background: rgba(8, 12, 22, 0.72);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(8, 12, 26, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: var(--radius-md);
-  padding: 11px var(--space-4);
+  padding: 13px var(--space-5);
   color: var(--text-primary);
   font-size: var(--font-sm);
+  font-weight: 500;
   outline: none;
   width: 100%;
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
   box-shadow:
-    0 1px 0 rgba(255,255,255,0.04) inset,
-    0 2px 10px rgba(0,0,0,0.25);
+    0 1.5px 0 rgba(255,255,255,0.07) inset,
+    0 -0.5px 0 rgba(0,0,0,0.3) inset,
+    0 4px 16px rgba(0,0,0,0.28);
   transition: border-color var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
 }
 
-.formInput:hover { border-color: rgba(255, 255, 255, 0.13); }
+.formInput:hover { border-color: rgba(255, 255, 255, 0.16); }
 
 .formInput:focus {
-  border-color: rgba(59, 130, 246, 0.5);
-  background: rgba(8, 12, 22, 0.88);
+  border-color: rgba(59, 130, 246, 0.55);
+  background: rgba(8, 14, 30, 0.85);
   box-shadow:
-    0 0 0 3px rgba(59, 130, 246, 0.13),
-    0 0 18px rgba(59, 130, 246, 0.09),
-    0 1px 0 rgba(255,255,255,0.04) inset;
+    0 0 0 3.5px rgba(59, 130, 246, 0.15),
+    0 0 22px rgba(59, 130, 246, 0.1),
+    0 1.5px 0 rgba(255,255,255,0.07) inset;
 }
 
+.formInput::placeholder { color: var(--text-muted); }
+
+/* ── STATUS OPTION CARDS ── */
 .statusOptions {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -391,29 +400,30 @@
   display: flex;
   align-items: flex-start;
   gap: var(--space-3);
-  padding: var(--space-4);
+  padding: var(--space-5);
   border-radius: var(--radius-md);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  background: rgba(8,12,26,0.55);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
   transition: all var(--transition-base);
   box-shadow:
-    0 1px 0 rgba(255,255,255,0.04) inset,
-    0 4px 12px rgba(0,0,0,0.2);
+    0 1.5px 0 rgba(255,255,255,0.06) inset,
+    0 4px 14px rgba(0,0,0,0.22);
 }
 
 .statusCard:hover {
-  border-color: rgba(255, 255, 255, 0.13);
-  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.15);
+  background: rgba(12,18,34,0.65);
 }
 
 .statusCheckbox:checked + .statusCard {
-  border-color: rgba(59, 130, 246, 0.42);
-  background: rgba(59, 130, 246, 0.09);
+  border-color: rgba(59, 130, 246, 0.45);
+  background: rgba(59, 130, 246, 0.1);
   box-shadow:
-    0 0 0 0.5px rgba(96, 165, 250, 0.12) inset,
-    0 0 24px rgba(59, 130, 246, 0.12),
-    0 4px 12px rgba(0,0,0,0.2);
+    0 0 0 0.5px rgba(96, 165, 250, 0.14) inset,
+    0 0 28px rgba(59, 130, 246, 0.14),
+    0 4px 14px rgba(0,0,0,0.22);
 }
 
 .statusIcon { font-size: 22px; }
@@ -421,7 +431,7 @@
 .statusTitle {
   display: block;
   font-size: var(--font-sm);
-  font-weight: 600;
+  font-weight: 700;
   color: var(--text-primary);
   margin-bottom: 2px;
 }
@@ -448,15 +458,15 @@
   color: #fff;
   border: none;
   border-radius: var(--radius-sm);
-  padding: 10px var(--space-5);
+  padding: 11px var(--space-6);
   font-size: var(--font-sm);
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
   overflow: hidden;
   transition: transform var(--transition-fast), box-shadow var(--transition-fast), filter var(--transition-fast), opacity var(--transition-fast);
   box-shadow:
-    0 1px 0 rgba(255,255,255,0.18) inset,
-    0 4px 18px rgba(37, 99, 235, 0.42);
+    0 1px 0 rgba(255,255,255,0.2) inset,
+    0 4px 20px rgba(37, 99, 235, 0.45);
 }
 
 .btnPrimary::before {
@@ -475,7 +485,7 @@
 .btnPrimary:hover:not(:disabled) {
   transform: translateY(-2px);
   box-shadow:
-    0 1px 0 rgba(255,255,255,0.22) inset,
+    0 1px 0 rgba(255,255,255,0.24) inset,
     0 10px 28px rgba(37, 99, 235, 0.55);
   filter: brightness(1.07);
 }
@@ -491,22 +501,22 @@
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.05);
   color: var(--text-secondary);
-  border: 1px solid rgba(255, 255, 255, 0.09);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: var(--radius-sm);
-  padding: 9px var(--space-4);
+  padding: 10px var(--space-4);
   font-size: var(--font-sm);
   font-weight: 500;
   cursor: pointer;
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(10px);
   transition: all var(--transition-fast);
 }
 
 .btnSecondary:hover {
-  border-color: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.18);
   color: var(--text-primary);
-  background: rgba(255, 255, 255, 0.07);
+  background: rgba(255, 255, 255, 0.08);
   box-shadow: 0 2px 14px rgba(0,0,0,0.28);
 }
 
@@ -517,5 +527,5 @@
   .main { padding: 0; }
   .assignGrid { grid-template-columns: 1fr; }
   .statusOptions { grid-template-columns: 1fr; }
-  .formCardBody { max-width: 100%; padding: var(--space-5); }
+  .formCardBody { padding: var(--space-5); }
 }
