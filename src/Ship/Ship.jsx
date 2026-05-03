@@ -10,10 +10,20 @@ import styles from "./Ship.module.css"; // We'll keep a tiny css file just in ca
 
 export default function Ship() {
   const {
-    lat, lng, services,
-    setLat, setLng, setServices,
-    profile, offers, requests, assignments,
-    refreshOffers, handleCreateOffer, handleLogout,
+    lat,
+    lng,
+    services,
+    setLat,
+    setLng,
+    setServices,
+    profile,
+    offers,
+    requests,
+    assignments,
+    refreshOffers,
+    handleCreateOffer,
+    handleLogout,
+    handleUpdateOffer,
   } = useShipData();
 
   const [activeTab, setActiveTab] = useState("profile");
@@ -30,9 +40,7 @@ export default function Ship() {
       onTabChange={setActiveTab}
       onLogout={onLogoutClick}
     >
-      {activeTab === "profile" && (
-        <ProfilePage profile={profile} />
-      )}
+      {activeTab === "profile" && <ProfilePage profile={profile} />}
       {activeTab === "offers" && (
         <OffersPage
           profile={profile}
@@ -45,18 +53,14 @@ export default function Ship() {
           setLng={setLng}
           setServices={setServices}
           handleCreateOffer={handleCreateOffer}
+          handleUpdateOffer={handleUpdateOffer}
         />
       )}
       {activeTab === "requests" && (
-        <RequestsPage
-          profile={profile}
-          requests={requests}
-        />
+        <RequestsPage profile={profile} requests={requests} />
       )}
       {activeTab === "assignments" && (
-        <AssignmentsPage
-          assignments={assignments}
-        />
+        <AssignmentsPage assignments={assignments} />
       )}
     </DashboardLayout>
   );

@@ -29,6 +29,7 @@ async function request(url, options = {}) {
       return retry.json();
     } catch {
       window.location.href = "/login";
+      localStorage.clear();
       return;
     }
   }
@@ -83,7 +84,7 @@ export const createOffer = (token, body) =>
 
 export const updateOffer = (token, id, body) =>
   request(`${BASE}/offers/` + id, {
-    method: "POST",
+    method: "PUT",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,

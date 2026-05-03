@@ -1,1 +1,13 @@
 please fix that access token expire is handled and search for method to ue fetch all that inside of .js file adn use asyn next get profile from te ship table also nextdot he offers all that
+
+
+
+
+
+
+
+
+
+
+
+most important that you chek for offer delte as it is foregin key to the assignments do somehing to deekte after assignments is made
