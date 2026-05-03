@@ -1,0 +1,104 @@
+.sidebar {
+  width: 240px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 60px;
+  height: calc(100vh - 60px);
+  overflow-y: auto;
+  padding: var(--space-4);
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 10px var(--space-4);
+  border-radius: var(--radius-md);
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-size: var(--font-sm);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-align: left;
+  width: 100%;
+  overflow: hidden;
+}
+
+.item:hover {
+  color: var(--text-primary);
+  background: var(--bg-glass);
+}
+
+.itemActive {
+  color: var(--text-accent);
+  background: rgba(59, 130, 246, 0.08);
+}
+
+.itemActive:hover {
+  background: rgba(59, 130, 246, 0.12);
+  color: var(--text-accent);
+}
+
+.activeBar {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 18px;
+  border-radius: var(--radius-full);
+  background: linear-gradient(180deg, var(--accent-primary), var(--accent-secondary));
+  animation: barIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes barIn {
+  from { opacity: 0; height: 0; }
+  to   { opacity: 1; height: 18px; }
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  font-size: 15px;
+  flex-shrink: 0;
+}
+
+.label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 900px) {
+  .sidebar {
+    width: 56px;
+    padding: var(--space-2);
+  }
+
+  .label {
+    display: none;
+  }
+
+  .item {
+    justify-content: center;
+    padding: 10px;
+  }
+
+  .icon {
+    width: 24px;
+    height: 24px;
+    font-size: 18px;
+  }
+}
