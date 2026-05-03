@@ -55,45 +55,46 @@ export default function DashboardLayout({ activeTab, onTabChange, onLogout, chil
         </div>
       </nav>
 
-      {/* ── STICKY SUB-NAV — centered glass pill ─ */}
-      <div className={styles.subNav}>
-        <div className={styles.tabPill}>
-          {TABS.map(tab => {
-            const TabIcon = tab.Icon;
-            return (
-              <button
-                key={tab.key}
-                className={`${styles.tab} ${activeTab === tab.key ? styles.tabActive : ""}`}
-                onClick={() => onTabChange(tab.key)}
-              >
-                <span className={styles.tabIcon}><TabIcon size={14} /></span>
-                <span className={styles.tabLabel}>{tab.label}</span>
-              </button>
-            );
-          })}
-        </div>
-      </div>
-
       {/* ── PAGE TITLE BAR ──────────────────────── */}
       <div className={styles.titleBar}>
         <div className={styles.titleBarInner}>
-          <div className={styles.breadcrumb}>
-            <span className={styles.breadcrumbRoot}>Ship Dashboard</span>
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M9 18l6-6-6-6"/></svg>
-            <span className={styles.breadcrumbCurrent}>{activeTabData?.label}</span>
+          <div className={styles.titleLeft}>
+            <div className={styles.breadcrumb}>
+              <span className={styles.breadcrumbRoot}>Ship Dashboard</span>
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M9 18l6-6-6-6"/></svg>
+              <span className={styles.breadcrumbCurrent}>{activeTabData?.label}</span>
+            </div>
+            <h1 className={styles.pageTitle}>
+              {ActiveIcon && (
+                <span className={styles.pageTitleIcon}><ActiveIcon size={24} /></span>
+              )}
+              <span className={styles.pageTitleText}>{activeTabData?.label}</span>
+            </h1>
+            <p className={styles.pageSubtitle}>
+              {activeTabData?.key === "profile"     && "Manage your vessel and account information"}
+              {activeTabData?.key === "offers"      && "Create and manage your service offers"}
+              {activeTabData?.key === "requests"    && "Post and track service requests"}
+              {activeTabData?.key === "assignments" && "View and update active job assignments"}
+            </p>
           </div>
-          <h1 className={styles.pageTitle}>
-            {ActiveIcon && (
-              <span className={styles.pageTitleIcon}><ActiveIcon size={24} /></span>
-            )}
-            <span className={styles.pageTitleText}>{activeTabData?.label}</span>
-          </h1>
-          <p className={styles.pageSubtitle}>
-            {activeTabData?.key === "profile"     && "Manage your vessel and account information"}
-            {activeTabData?.key === "offers"      && "Create and manage your service offers"}
-            {activeTabData?.key === "requests"    && "Post and track service requests"}
-            {activeTabData?.key === "assignments" && "View and update active job assignments"}
-          </p>
+
+          <div className={styles.titleRight}>
+            <div className={styles.tabPill}>
+              {TABS.map(tab => {
+                const TabIcon = tab.Icon;
+                return (
+                  <button
+                    key={tab.key}
+                    className={`${styles.tab} ${activeTab === tab.key ? styles.tabActive : ""}`}
+                    onClick={() => onTabChange(tab.key)}
+                  >
+                    <span className={styles.tabIcon}><TabIcon size={14} /></span>
+                    <span className={styles.tabLabel}>{tab.label}</span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
         </div>
       </div>
 

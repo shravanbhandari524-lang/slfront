@@ -4,9 +4,9 @@
    ═══════════════════════════════════════════════ */
 
 :root {
-  --nav-h:       76px;
+  --nav-h:       96px;
   --subnav-h:    68px;
-  --sticky-h:    144px;
+  --sticky-h:    164px;
   --gutter:      clamp(24px, 3.5vw, 48px);
   --content-max: 1480px;
 }
@@ -224,18 +224,8 @@
 }
 
 /* ══════════════════════════════════════
-   STICKY SUB-NAV — centered floating pill
+   TAB PILL NAV
    ══════════════════════════════════════ */
-.subNav {
-  position: sticky;
-  top: var(--nav-h);
-  z-index: 200;
-  height: var(--subnav-h);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 var(--gutter);
-}
 
 /* Ultra-glass pill */
 .tabPill {
@@ -316,8 +306,19 @@
   max-width: var(--content-max);
   margin: 0 auto;
   display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-5);
+}
+.titleLeft {
+  display: flex;
   flex-direction: column;
   gap: 5px;
+}
+.titleRight {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
 }
 .breadcrumb {
   display: flex;
@@ -398,6 +399,19 @@
   .tabLabel { display: none; }
   .tabIcon { opacity: 1 !important; }
   .titleBar { padding: var(--space-5) var(--space-5) var(--space-4); }
+  .titleBarInner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-4);
+  }
+  .titleRight {
+    width: 100%;
+  }
+  .tabPill {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+  }
   .content { padding: var(--space-5) var(--space-5) var(--space-10); }
   .navStatus, .navSubtitle { display: none; }
   .pageTitle { font-size: var(--font-xl); }

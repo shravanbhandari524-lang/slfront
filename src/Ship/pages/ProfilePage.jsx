@@ -63,7 +63,7 @@ export default function ProfilePage({ profile }) {
             </div>
 
             {/* Stat grid */}
-            <h2 className={styles.sectionTitle}>Account Overview</h2>
+            <h2 className={styles.sectionTitle} style={{ marginTop: '2.5rem' }}>Account Overview</h2>
             <div className={styles.statGrid}>
               <div className={styles.statCard}>
                 <div className={styles.statIconBox}>👤</div>
