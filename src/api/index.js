@@ -1,4 +1,4 @@
-const BASE = "";
+const BASE = "http://localhost:8080";
 
 async function request(url, options = {}) {
   const res = await fetch(url, {
