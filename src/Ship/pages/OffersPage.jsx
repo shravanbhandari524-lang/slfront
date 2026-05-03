@@ -5,13 +5,14 @@ import EmptyState from "../../components/ui/EmptyState.jsx";
 import ServiceChips from "../../components/ui/ServiceChips.jsx";
 import MapPicker from "../../components/ui/MapPicker.jsx";
 import { useToast } from "../../components/ui/Toast.jsx";
+import { IconPackage, IconPlus, IconEdit, IconTrash } from "../Icons.jsx";
 import styles from "./OffersPage.module.css";
 
 const SIDEBAR_ITEMS = [
-  { key: "active", label: "Active Offers",  icon: "📦" },
-  { key: "create", label: "Create Offer",   icon: "➕" },
-  { key: "update", label: "Update Offer",   icon: "✏️" },
-  { key: "delete", label: "Delete Offer",   icon: "🗑️" },
+  { key: "active", label: "Active Offers", icon: <IconPackage size={14} /> },
+  { key: "create", label: "Create Offer",  icon: <IconPlus size={14} /> },
+  { key: "update", label: "Update Offer",  icon: <IconEdit size={14} /> },
+  { key: "delete", label: "Delete Offer",  icon: <IconTrash size={14} /> },
 ];
 
 export default function OffersPage({

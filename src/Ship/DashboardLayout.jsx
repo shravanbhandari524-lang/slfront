@@ -1,33 +1,22 @@
-import { useState, useRef, useEffect } from "react";
 import styles from "./DashboardLayout.module.css";
+import {
+  IconUser, IconPackage, IconClipboard, IconBriefcase,
+  IconAnchor, IconShip,
+} from "./Icons.jsx";
 
 const TABS = [
-  { key: "profile",     label: "Profile",     icon: "👤" },
-  { key: "offers",      label: "Offers",      icon: "📦" },
-  { key: "requests",    label: "Requests",    icon: "📋" },
-  { key: "assignments", label: "Assignments", icon: "🗂️" },
+  { key: "profile",     label: "Profile",     Icon: IconUser },
+  { key: "offers",      label: "Offers",      Icon: IconPackage },
+  { key: "requests",    label: "Requests",    Icon: IconClipboard },
+  { key: "assignments", label: "Assignments", Icon: IconBriefcase },
 ];
 
 export default function DashboardLayout({ activeTab, onTabChange, onLogout, children }) {
-  const tabRefs  = useRef({});
-  const [indicator, setIndicator] = useState({ left: 0, width: 0 });
-
-  useEffect(() => {
-    const el = tabRefs.current[activeTab];
-    if (el) {
-      const parent = el.closest(`.${styles.tabList}`);
-      if (!parent) return;
-      const pr = parent.getBoundingClientRect();
-      const er = el.getBoundingClientRect();
-      setIndicator({ left: er.left - pr.left, width: er.width });
-    }
-  }, [activeTab]);
-
   const activeTabData = TABS.find(t => t.key === activeTab);
+  const ActiveIcon    = activeTabData?.Icon;
 
   return (
     <div className={styles.layout}>
-      {/* Ambient background orbs */}
       <div className={styles.orb1} aria-hidden="true" />
       <div className={styles.orb2} aria-hidden="true" />
       <div className={styles.orb3} aria-hidden="true" />
@@ -36,27 +25,14 @@ export default function DashboardLayout({ activeTab, onTabChange, onLogout, chil
       <nav className={styles.nav}>
         <div className={styles.navBrand}>
           <div className={styles.navIconWrap}>
-            <div className={styles.navIcon}>⚓</div>
+            <div className={styles.navIcon}>
+              <IconAnchor size={18} />
+            </div>
           </div>
           <div className={styles.navBrandText}>
             <span className={styles.navTitle}>SEALINE</span>
             <span className={styles.navSubtitle}>Maritime Operations</span>
           </div>
-        </div>
-
-        {/* Desktop ghost tabs — mirror the subNav */}
-        <div className={styles.navCenter} aria-hidden="true">
-          {TABS.map(tab => (
-            <button
-              key={tab.key}
-              className={`${styles.navTab} ${activeTab === tab.key ? styles.navTabActive : ""}`}
-              onClick={() => onTabChange(tab.key)}
-              tabIndex={-1}
-            >
-              <span>{tab.icon}</span>
-              <span>{tab.label}</span>
-            </button>
-          ))}
         </div>
 
         <div className={styles.navRight}>
@@ -65,7 +41,7 @@ export default function DashboardLayout({ activeTab, onTabChange, onLogout, chil
             <span className={styles.navStatusLabel}>Online</span>
           </div>
           <div className={styles.navRolePill}>
-            <span>🚢</span>
+            <IconShip size={13} />
             <span className={styles.navRoleLabel}>Ship</span>
           </div>
           <button className={styles.logoutBtn} onClick={onLogout}>
@@ -79,28 +55,22 @@ export default function DashboardLayout({ activeTab, onTabChange, onLogout, chil
         </div>
       </nav>
 
-      {/* ── STICKY SUB-NAV (tabs) ────────────────── */}
+      {/* ── STICKY SUB-NAV — centered glass pill ─ */}
       <div className={styles.subNav}>
-        <div className={styles.subNavInner}>
-          <div className={styles.tabList}>
-            {/* sliding underline indicator */}
-            <span
-              className={styles.tabIndicator}
-              style={{ left: indicator.left, width: indicator.width }}
-              aria-hidden="true"
-            />
-            {TABS.map(tab => (
+        <div className={styles.tabPill}>
+          {TABS.map(tab => {
+            const TabIcon = tab.Icon;
+            return (
               <button
                 key={tab.key}
-                ref={el => (tabRefs.current[tab.key] = el)}
                 className={`${styles.tab} ${activeTab === tab.key ? styles.tabActive : ""}`}
                 onClick={() => onTabChange(tab.key)}
               >
-                <span className={styles.tabIcon}>{tab.icon}</span>
+                <span className={styles.tabIcon}><TabIcon size={14} /></span>
                 <span className={styles.tabLabel}>{tab.label}</span>
               </button>
-            ))}
-          </div>
+            );
+          })}
         </div>
       </div>
 
@@ -113,7 +83,9 @@ export default function DashboardLayout({ activeTab, onTabChange, onLogout, chil
             <span className={styles.breadcrumbCurrent}>{activeTabData?.label}</span>
           </div>
           <h1 className={styles.pageTitle}>
-            <span className={styles.pageTitleIcon}>{activeTabData?.icon}</span>
+            {ActiveIcon && (
+              <span className={styles.pageTitleIcon}><ActiveIcon size={22} /></span>
+            )}
             {activeTabData?.label}
           </h1>
           <p className={styles.pageSubtitle}>

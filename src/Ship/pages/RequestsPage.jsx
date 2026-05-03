@@ -4,13 +4,14 @@ import StatusBadge from "../../components/ui/StatusBadge.jsx";
 import EmptyState from "../../components/ui/EmptyState.jsx";
 import ServiceChips from "../../components/ui/ServiceChips.jsx";
 import MapPicker from "../../components/ui/MapPicker.jsx";
+import { IconList, IconPlus, IconEdit, IconTrash } from "../Icons.jsx";
 import styles from "./RequestsPage.module.css";
 
 const SIDEBAR_ITEMS = [
-  { key: "all",    label: "All Requests",    icon: "📋" },
-  { key: "create", label: "Create Request",  icon: "➕" },
-  { key: "update", label: "Update Request",  icon: "✏️" },
-  { key: "delete", label: "Delete Request",  icon: "🗑️" },
+  { key: "all",    label: "All Requests",   icon: <IconList size={14} /> },
+  { key: "create", label: "Create Request", icon: <IconPlus size={14} /> },
+  { key: "update", label: "Update Request", icon: <IconEdit size={14} /> },
+  { key: "delete", label: "Delete Request", icon: <IconTrash size={14} /> },
 ];
 
 export default function RequestsPage({ profile, requests }) {

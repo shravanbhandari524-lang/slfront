@@ -1,11 +1,12 @@
 import { useState } from "react";
 import Sidebar from "../Sidebar.jsx";
+import { IconBarChart, IconAnchor, IconActivity, IconShip } from "../Icons.jsx";
 import styles from "./ProfilePage.module.css";
 
 const SIDEBAR_ITEMS = [
-  { key: "overview", label: "Overview",       icon: "📊" },
-  { key: "vessel",   label: "Vessel Details", icon: "🚢" },
-  { key: "activity", label: "Activity",       icon: "📈" },
+  { key: "overview", label: "Overview",       icon: <IconBarChart size={14} /> },
+  { key: "vessel",   label: "Vessel Details", icon: <IconAnchor size={14} /> },
+  { key: "activity", label: "Activity",       icon: <IconActivity size={14} /> },
 ];
 
 export default function ProfilePage({ profile }) {
@@ -23,7 +24,7 @@ export default function ProfilePage({ profile }) {
               <div className={styles.heroGlow} />
               <div className={styles.heroAvatar}>
                 <div className={styles.heroAvatarRing} />
-                <div className={styles.heroAvatarInner}>🚢</div>
+                <div className={styles.heroAvatarInner}><IconShip size={30} /></div>
               </div>
               <div className={styles.heroInfo}>
                 <div className={styles.heroName}>{profile?.username || "Unknown Vessel"}</div>

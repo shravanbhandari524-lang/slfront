@@ -2,11 +2,12 @@ import { useState } from "react";
 import Sidebar from "../Sidebar.jsx";
 import StatusBadge from "../../components/ui/StatusBadge.jsx";
 import EmptyState from "../../components/ui/EmptyState.jsx";
+import { IconLayers, IconRefreshCw } from "../Icons.jsx";
 import styles from "./AssignmentsPage.module.css";
 
 const SIDEBAR_ITEMS = [
-  { key: "all",    label: "All Assignments", icon: "🗂️" },
-  { key: "status", label: "Update Status",   icon: "🔄" },
+  { key: "all",    label: "All Assignments", icon: <IconLayers size={14} /> },
+  { key: "status", label: "Update Status",   icon: <IconRefreshCw size={14} /> },
 ];
 
 const STEPS = [
@@ -60,7 +61,7 @@ export default function AssignmentsPage({ assignments }) {
                       {/* Card header strip */}
                       <div className={styles.cardHeaderStrip}>
                         <div className={styles.cardHeaderLeft}>
-                          <span className={styles.cardHeaderIcon}>🗂️</span>
+                          <span className={styles.cardHeaderIcon}><IconLayers size={16} /></span>
                           <span className={styles.cardHeaderId}>ID: {item?.id || "—"}</span>
                         </div>
                         <StatusBadge status={item?.status} />
@@ -147,7 +148,7 @@ export default function AssignmentsPage({ assignments }) {
             <h2 className={styles.sectionTitle}>Update Assignment Status</h2>
             <div className={styles.formCard}>
               <div className={styles.formCardHeader}>
-                <span className={styles.formCardHeaderIcon}>🔄</span>
+                <span className={styles.formCardHeaderIcon}><IconRefreshCw size={16} /></span>
                 <span className={styles.formCardHeaderTitle}>Change Status</span>
               </div>
               <div className={styles.formCardBody}>

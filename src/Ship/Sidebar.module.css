@@ -3,11 +3,11 @@
    ═══════════════════════════════════════════════ */
 
 .sidebar {
-  width: 220px;
+  width: 260px;
   flex-shrink: 0;
   position: sticky;
-  top: var(--sticky-h, 112px);
-  height: calc(100vh - var(--sticky-h, 112px));
+  top: var(--sticky-h, 132px);
+  height: calc(100vh - var(--sticky-h, 132px));
   overflow-y: auto;
   overflow-x: hidden;
   padding: var(--space-2) var(--space-3) var(--space-10) var(--space-2);
