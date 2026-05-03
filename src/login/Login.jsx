@@ -4,7 +4,7 @@ import { getRole } from "../services/decodeToken.js";
 import { useContext } from "react";
 import { Rcont } from "../context/Rcontext.jsx";
 import styles from "../modular_css/Login.module.css";
-
+import { loginUser } from "../api/index.js";
 function UserIcon() {
   return (
     <svg
@@ -66,36 +66,23 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Login attempt...");
-
     try {
-      const res = await fetch(
-        "https://d6cf-2401-4900-892f-96e2-66f8-11f5-3641-5022.ngrok-free.app/auth/login",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ username, password }),
-          credentials: "include",
-        },
-      );
-      if (res.ok) {
-        const data = await res.json();
-        setToken(data.access);
-        const role = getRole(data.access);
-        if (role == 0) {
-          navigate("/");
-          setToken("");
-        } else if (role == "admin") {
-          navigate("/admin");
-        } else if (role == "ship") {
-          navigate("/ship");
-        }
+      const data = await loginUser(username, password); // FIX: uses central wrapper
+      setToken(data.access);
+      const role = getRole(data.access);
+
+      if (role === "admin") {
+        navigate("/admin");
+      } else if (role === "ship") {
+        navigate("/ship");
+      } else if (role === "vendor") {
+        navigate("/vendor");
       } else {
-        const errort = await res.text();
-        console.log("Server error:", errort);
+        navigate("/login");
       }
     } catch (err) {
-      console.log("Network error:", err.message);
+      console.error("Login failed:", err.message);
+      // show error to user here if you want
     }
   };
 
