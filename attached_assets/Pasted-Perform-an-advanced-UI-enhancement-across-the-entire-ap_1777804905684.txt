@@ -1,0 +1,241 @@
+Perform an advanced UI enhancement across the entire application (EXCEPT the login page), upgrading it to a high-end, futuristic, dark glassmorphism dashboard with blue edge-light bevel effects and full-width layout optimization.
+
+STRICT RULES:
+
+- Do NOT modify login page
+- Do NOT change backend logic, API calls, routing, or functionality
+- Do NOT rename variables or handlers
+- Only enhance UI visuals, layout, spacing, and interactions
+
+---
+
+COLOR SYSTEM (LOCKED):
+
+- Reuse the exact color palette from the login page
+- Use the existing accent color as the base
+- Introduce BLUE edge lighting using shades derived from the same palette
+- If blue is not present, generate subtle blue tones that harmonize (cool-toned variants only)
+
+Rules:
+
+- No random new colors
+- No neon overload
+- Maintain strong readability and contrast
+
+---
+
+FULL-WIDTH LAYOUT (VERY IMPORTANT):
+
+- Expand main dashboard layout to near full width (90%–95% of screen)
+
+- Reduce excessive margins and unused whitespace
+
+- Maintain balanced padding (not cramped)
+
+- Use responsive max-width only for readability, not restriction
+
+- Cards should scale horizontally and use grid layouts:
+  
+  - Desktop: multi-column grid
+  - Tablet: 2 columns
+  - Mobile: single column
+
+---
+
+ADVANCED GLASSMORPHISM (ALL COMPONENTS):
+
+Apply to:
+
+- Navbar
+- Sidebar
+- Cards
+- Modals
+- Forms
+
+Style:
+
+- Semi-transparent backgrounds
+- Strong but controlled backdrop blur
+- Layered transparency (different opacity per layer)
+- Subtle frosted effect
+
+Avoid:
+
+- Over-blurring content
+- Washed-out text
+
+---
+
+BLUE EDGE-LIGHT BEVEL SYSTEM (SIGNATURE EFFECT):
+
+Apply a premium edge-light glow to all major UI elements:
+
+- Add subtle blue light along edges (top/left highlights)
+- Add soft shadow on bottom/right for depth
+- Simulate directional lighting (top-left source)
+
+Implementation:
+
+- Thin gradient borders (blue → transparent)
+- Outer glow (very soft, low opacity)
+- Inner highlight for glass edges
+
+IMPORTANT:
+
+- Keep glow subtle and refined
+- No harsh neon lines
+- Should feel like light reflecting on glass, not LED strips
+
+---
+
+NAVBAR (CENTERED PILL):
+
+- Glass panel with blur
+- Rounded-full shape
+- Add blue edge highlight glow
+- Active tab:
+  - Soft blue glow
+  - Smooth sliding indicator
+- Add subtle reflection/shimmer effect
+
+---
+
+SIDEBAR:
+
+- Glass panel with depth
+- Slight inset + outer shadow combination
+- Active item:
+  - Blue glow highlight
+  - Soft background tint
+- Hover:
+  - Smooth light-up effect
+
+---
+
+CARDS (OFFERS / REQUESTS / ASSIGNMENTS):
+
+- Glass cards with:
+  
+  - Blue edge bevel
+  - Soft glow on hover
+  - Lift animation (translateY)
+
+- Add layered depth:
+  
+  - Background layer blur
+  - Card layer sharper
+
+- Improve structure:
+  
+  - Clear sections inside card
+  - Icons + labels + spacing
+
+---
+
+FORMS & INPUTS:
+
+- Glass inputs with:
+  
+  - Inner shadow (pressed look)
+  - Blue focus glow
+
+- Focus state:
+  
+  - Subtle border glow (blue)
+  - Slight scale animation
+
+- Buttons:
+  
+  - Gradient using palette
+  - Blue glow on hover
+  - Press animation (scale down)
+
+---
+
+DEPTH & LIGHTING SYSTEM:
+
+- Simulate realistic lighting:
+  
+  - Top-left highlight
+  - Bottom-right shadow
+
+- Use layered shadows:
+  
+  - Soft outer shadow
+  - Subtle inner highlight
+
+- Add faint ambient blue light across UI sections
+
+---
+
+ANIMATIONS & MICRO-INTERACTIONS:
+
+- Smooth transitions (200–300ms ease)
+
+- Hover:
+  
+  - Glow increase
+  - Slight lift
+
+- Page transitions:
+  
+  - Fade + slight slide
+
+- Avoid excessive motion
+
+---
+
+EMPTY STATES:
+
+- Glass card with icon
+- Blue accent highlight
+- CTA button with glow
+- Maintain visual consistency
+
+---
+
+SCROLL & POLISH:
+
+- Minimal custom scrollbar with blue tint
+- Smooth scrolling
+- Subtle section reveal animations
+
+---
+
+RESPONSIVENESS:
+
+- Maintain full-width feel on large screens
+- Collapse sidebar into drawer on mobile
+- Ensure readability on smaller devices
+
+---
+
+CODE QUALITY:
+
+- Keep styles reusable
+- Use consistent class patterns
+- Avoid duplication
+- Maintain clean component structure
+
+---
+
+FINAL GOAL:
+
+The UI should feel:
+
+- Ultra-premium
+- Futuristic but clean
+- Deep and layered (not flat)
+- Spacious and full-width
+- Consistent with login design
+
+It should look like a high-end SaaS control panel with glass surfaces and soft blue light reflections.
+
+Avoid:
+
+- Over-glow
+- Excessive blur
+- Clutter
+- Poor contrast
+
+Focus on elegance, depth, and controlled lighting.

@@ -9,19 +9,41 @@
 }
 
 .iconCircle {
-  width: 64px;
-  height: 64px;
+  position: relative;
+  width: 72px;
+  height: 72px;
   border-radius: 50%;
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(59, 130, 246, 0.04));
-  border: 1px solid rgba(59, 130, 246, 0.12);
+  background: rgba(59, 130, 246, 0.08);
+  border: 1px solid rgba(59, 130, 246, 0.16);
   display: flex;
   align-items: center;
   justify-content: center;
+  backdrop-filter: blur(12px);
+  box-shadow:
+    0 0 0 0.5px rgba(96, 165, 250, 0.1) inset,
+    0 0 30px rgba(59, 130, 246, 0.1),
+    0 8px 24px rgba(0,0,0,0.3);
+}
+
+.iconCircle::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 20%;
+  right: 20%;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent,
+    rgba(96, 165, 250, 0.5),
+    transparent
+  );
+  border-radius: var(--radius-full);
 }
 
 .icon {
-  font-size: 28px;
-  opacity: 0.7;
+  font-size: 30px;
+  opacity: 0.65;
+  filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.25));
 }
 
 .title {
@@ -35,27 +57,56 @@
   font-size: var(--font-sm);
   color: var(--text-muted);
   max-width: 320px;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 .cta {
+  position: relative;
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
   margin-top: var(--space-2);
-  padding: 8px var(--space-5);
-  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  padding: 10px var(--space-5);
+  background: linear-gradient(135deg, #4f9cff 0%, #3b82f6 45%, #2563eb 100%);
   color: #fff;
   border: none;
   border-radius: var(--radius-sm);
   font-size: var(--font-sm);
   font-weight: 600;
   cursor: pointer;
-  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
-  box-shadow: 0 3px 12px rgba(37, 99, 235, 0.3);
+  overflow: hidden;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), filter var(--transition-fast);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.18) inset,
+    0 4px 16px rgba(37, 99, 235, 0.4),
+    0 1px 4px rgba(0,0,0,0.25);
+}
+
+.cta::before {
+  content: '';
+  position: absolute;
+  top: -30%; left: -80%;
+  width: 50%; height: 160%;
+  background: linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.2) 50%, transparent 70%);
+  transform: skewX(-18deg);
+  transition: left 0s;
+  pointer-events: none;
+}
+
+.cta:hover::before {
+  left: 130%;
+  transition: left 0.45s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .cta:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 6px 18px rgba(37, 99, 235, 0.4);
+  transform: translateY(-2px);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.2) inset,
+    0 8px 24px rgba(37, 99, 235, 0.52),
+    0 3px 8px rgba(0,0,0,0.2);
+  filter: brightness(1.06);
+}
+
+.cta:active {
+  transform: translateY(0) scale(0.98);
 }
