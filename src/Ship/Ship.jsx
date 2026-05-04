@@ -65,9 +65,7 @@ export default function Ship() {
       {activeTab === "assignments" && (
         <AssignmentsPage assignments={assignments} />
       )}
-      {activeTab === "map" && (
-        <MapPage />
-      )}
+      {activeTab === "map" && <MapPage offers={offers} />}
     </DashboardLayout>
   );
 }
