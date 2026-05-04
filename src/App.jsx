@@ -5,8 +5,14 @@ import Ship from "./Ship/Ship.jsx";
 import Vendor from "./Vendor/Vendor.jsx";
 import Admin from "./admin/Admin.jsx";
 import HomeRedirect from "./components/HomeRedirect.jsx";
-
+import MapView from "./components/MapView.jsx";
+import "leaflet/dist/leaflet.css";
 function App() {
+  const points = [
+    { id: 1, lat: 12.9716, lng: 77.5946 },
+    { id: 2, lat: 13.0827, lng: 80.2707 },
+    { id: 3, lat: 17.385, lng: 78.4867 },
+  ];
   return (
     <div>
       <Routes>
@@ -40,6 +46,7 @@ function App() {
             </ProtectRoutes>
           }
         />
+        <Route path="/lawda" element={<MapView points={points} />} />
       </Routes>
     </div>
   );

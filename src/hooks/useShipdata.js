@@ -14,12 +14,13 @@ import {
 
 export function useShipData() {
   const navigate = useNavigate();
-  const { setToken } = useContext(Rcont);
+  const { setToken: setGlobalToken } = useContext(Rcont);
 
   const [profile, setProfile] = useState(null);
   const [offers, setOffers] = useState([]);
   const [requests, setRequests] = useState([]);
   const [assignments, setAssignments] = useState([]);
+
   const [token, setLocalToken] = useState(null);
   const [user, setUser] = useState(null);
 
@@ -29,14 +30,42 @@ export function useShipData() {
   const [lng, setLng] = useState("");
   const [services, setServices] = useState("");
 
+  // ---------------- AUTH HELPERS ----------------
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+    } catch (err) {
+      console.error("Logout error:", err);
+    }
+
+    localStorage.clear();
+    setProfile(null);
+    setOffers([]);
+    setUser(null);
+    setLocalToken(null);
+
+    navigate("/", { replace: true });
+  };
+
+  const refreshAuth = async () => {
+    const { access } = await refreshAccessToken();
+    setGlobalToken(access);
+    setLocalToken(access);
+
+    const decoded = decodeToken(access);
+    setUser(decoded);
+
+    return { access, decoded };
+  };
+
+  // ---------------- INIT ----------------
+
   useEffect(() => {
     const init = async () => {
       try {
-        const { access } = await refreshAccessToken();
-        setToken(access);
-        setLocalToken(access);
-        const decoded = decodeToken(access);
-        setUser(decoded);
+        const { access, decoded } = await refreshAuth();
+
         const cachedProfile = localStorage.getItem("profile");
 
         let profileData;
@@ -45,6 +74,7 @@ export function useShipData() {
           profileData = JSON.parse(cachedProfile);
         } else {
           const { data } = await getProfile(access, decoded.uuid);
+
           profileData = {
             uuid: decoded.uuid,
             username: decoded.username,
@@ -56,23 +86,15 @@ export function useShipData() {
 
           localStorage.setItem("profile", JSON.stringify(profileData));
         }
+
         setProfile(profileData);
 
-        const cachedOffers = localStorage.getItem("offers");
-
-        if (cachedOffers) {
-          setOffers(JSON.parse(cachedOffers));
-        } else {
-          const data = await getOffers(access, decoded.uuid);
-          setOffers(data.data);
-          localStorage.setItem("offers", JSON.stringify(data.data));
-        }
+        const offersRes = await getOffers(access, decoded.uuid);
+        setOffers(offersRes.data);
+        localStorage.setItem("offers", JSON.stringify(offersRes.data));
       } catch (err) {
-        if (err.statusCode == 401) {
-          await handleLogout();
-        } else {
-          await handleLogout();
-        }
+        console.error("INIT ERROR:", err);
+        await handleLogout();
       } finally {
         setLoading(false);
       }
@@ -81,32 +103,41 @@ export function useShipData() {
     init();
   }, []);
 
+  // ---------------- REFRESH OFFERS ----------------
+
   const refreshOffers = async () => {
     try {
       if (!token || !user) return;
-
       const data = await getOffers(token, user.uuid);
       setOffers(data.data);
       localStorage.setItem("offers", JSON.stringify(data.data));
     } catch (err) {
-      if (err.statusCode == 401) {
-        const { access } = await refreshAccessToken();
-        setToken(access);
-        setLocalToken(access);
+      if (err?.statusCode === 401) {
+        try {
+          const { access, decoded } = await refreshAuth();
 
-        const decoded = decodeToken(access);
-        setUser(decoded);
-        const data = await getOffers(access, decoded.uuid);
-        setOffers(data.data);
-        localStorage.setItem("offers", JSON.stringify(data.data));
+          const data = await getOffers(access, decoded.uuid);
+          setOffers(data.data);
+        } catch (e) {
+          console.error("Refresh failed:", e);
+          await handleLogout();
+        }
       } else {
-        await handleLogout();
+        console.error(err);
       }
     }
   };
+
+  // ---------------- CREATE OFFER ----------------
+
   const handleCreateOffer = async () => {
     try {
-      if (!profile?.uuid) return;
+      if (!profile?.uuid || !token || !user) return;
+
+      if (!lat || !lng || !services) {
+        alert("fill all data in creating offer");
+        return 0;
+      }
 
       const value = {
         vessel_id: profile.uuid,
@@ -115,18 +146,12 @@ export function useShipData() {
         services,
       };
 
-      if (!token || !user) return;
-
-      if (!value.lat || !value.lng || !value.services) {
-        alert("fill all data in creating offer");
-        return 0;
-      }
-
       const data = await createOffer(token, value);
 
       if (!data.success) {
-        if (data.type == "out_of_bound") alert("coordinates out of bound");
-        else if (data.type == "out_of_ocean") alert("coordinates out of ocean");
+        if (data.type === "out_of_bound") alert("coordinates out of bound");
+        else if (data.type === "out_of_ocean")
+          alert("coordinates out of ocean");
         return 0;
       }
 
@@ -140,130 +165,116 @@ export function useShipData() {
           lat: data.data[0].lat,
           lng: data.data[0].lng,
         },
-      ]); // await refreshOffers();
+      ]);
 
       setLat("");
       setLng("");
       setServices("");
+
       return 1;
     } catch (err) {
-      if (err?.statusCode == 401) {
-        const { access } = await refreshAccessToken();
+      if (err?.statusCode === 401) {
+        try {
+          const { access, decoded } = await refreshAuth();
 
-        setToken(access);
-        setLocalToken(access);
+          const value = {
+            vessel_id: profile.uuid,
+            lat: Number(lat),
+            lng: Number(lng),
+            services,
+          };
 
-        const decoded = decodeToken(access);
-        setUser(decoded);
+          await createOffer(access, value);
+          await refreshOffers();
 
-        const value = {
-          vessel_id: profile.uuid,
-          lat: Number(lat),
-          lng: Number(lng),
-          services,
-        };
-        if (!data.success) {
-          if (data.type == "out_of_bound") alert("coordinates out of bound");
-          else if (data.type == "out_of_ocean")
-            alert("coordinates out of ocean");
-          return 0;
+          return 1;
+        } catch (e) {
+          console.error(e);
+          await handleLogout();
         }
-        await createOffer(access, value);
-        await refreshOffers();
-
-        setLat("");
-        setLng("");
-        setServices("");
-        return 1;
-      } else if (err?.statusCode == 409) {
-        setLat("");
-        setLng("");
-        setServices("");
-        return 69;
       } else {
-        await handleLogout();
+        console.error(err);
       }
     }
   };
+
+  // ---------------- UPDATE OFFER ----------------
+
   const handleUpdateOffer = async (id, value) => {
     try {
-      if (!profile?.uuid) return;
-      if (!token || !user) return;
-
-      if (!value.lat || !value.lng || !value.services) {
-        alert("fill all data in creating offer");
-        return 0;
-      }
+      if (!profile?.uuid || !token || !user) return;
 
       const data = await updateOffer(token, id, value);
+
       if (!data.success) {
-        if (data.type == "out_of_bound") alert("coordinates out of bound");
-        else if (data.type == "out_of_ocean") alert("coordinates out of ocean");
-        else if (data.type == "offer_not_found") {
-          return 67;
-        }
+        if (data.type === "out_of_bound") alert("coordinates out of bound");
+        else if (data.type === "out_of_ocean")
+          alert("coordinates out of ocean");
+        else if (data.type === "offer_not_found") return 67;
         return 0;
       }
+
       await refreshOffers();
-      return 1;
+      return 2;
     } catch (err) {
-      if (err?.statusCode == 401) {
-        const { access } = await refreshAccessToken();
-
-        setToken(access);
-        setLocalToken(access);
-
-        const decoded = decodeToken(access);
-        setUser(decoded);
-        const data = await updateOffer(token, id, value);
-
-        if (!data.success) {
-          if (data.type == "out_of_bound") alert("coordinates out of bound");
-          else if (data.type == "out_of_ocean")
-            alert("coordinates out of ocean");
-          else if (data.type == "offer_not_found") {
-            return 67;
-          }
-          return 0;
+      if (err?.statusCode === 401) {
+        try {
+          const { access } = await refreshAuth();
+          await updateOffer(access, id, value);
+          await refreshOffers();
+          return 2;
+        } catch (e) {
+          console.error(e);
+          await handleLogout();
         }
-        await refreshOffers();
-        return 1;
+      } else {
+        console.error(err);
       }
     }
   };
-  //   const handleDeleteOffer = async (id) => {
-  //     try {
-  //       if (!profile?.uuid) return;
-  //       if (!token || !user) return;
-  //       const data = await deleteOffer(token, id);
-  //       if (!data.success) {
-  //         if (data.type == "offer_not_found") {
-  //           return 67;
-  //         }
-  //       }
-  //       return 1;
-  //     } catch (err) {if (err?.statusCode == 401) {
-  //         const { access } = await refreshAccessToken();
 
-  //         setToken(access);
-  //         setLocalToken(access);
+  // ---------------- DELETE OFFER (FIXED) ----------------
 
-  //         const decoded = decodeToken(access);
-  //         setUser(decoded);
-  //         const data = await updateOffer(token, id, value);
-  // }
-  //   };
-  const handleLogout = async () => {
+  const handleDeleteOffer = async (id) => {
     try {
-      await logout();
+      if (!profile?.uuid || !token || !user) return;
+      if (!id) {
+        alert("lawde");
+      }
 
-      localStorage.clear();
+      const data = await deleteOffer(token, id);
+      if (!data.success) {
+        if (data.type === "offer_not_found") return 67;
+        return 0;
+      }
+
+      await refreshOffers();
+      return 3;
     } catch (err) {
-      console.error(err);
-    } finally {
-      navigate("/");
+      if (err?.statusCode === 401) {
+        try {
+          const { access } = await refreshAuth();
+
+          const data = await deleteOffer(access, id); // ✅ FIXED
+
+          if (!data.success) {
+            if (data.type === "offer_not_found") return 67;
+            return 0;
+          }
+
+          await refreshOffers();
+          return 3;
+        } catch (e) {
+          console.error(e);
+          await handleLogout();
+        }
+      } else {
+        console.error(err);
+      }
     }
   };
+
+  // ---------------- RETURN ----------------
 
   return {
     lat,
@@ -272,14 +283,17 @@ export function useShipData() {
     setLat,
     setLng,
     setServices,
+
     profile,
     offers,
     requests,
     assignments,
     loading,
+
     refreshOffers,
     handleCreateOffer,
     handleUpdateOffer,
+    handleDeleteOffer,
     handleLogout,
   };
 }

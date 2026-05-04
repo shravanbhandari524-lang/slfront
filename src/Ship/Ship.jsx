@@ -24,6 +24,7 @@ export default function Ship() {
     handleCreateOffer,
     handleLogout,
     handleUpdateOffer,
+    handleDeleteOffer,
   } = useShipData();
 
   const [activeTab, setActiveTab] = useState("profile");
@@ -54,6 +55,7 @@ export default function Ship() {
           setServices={setServices}
           handleCreateOffer={handleCreateOffer}
           handleUpdateOffer={handleUpdateOffer}
+          handleDeleteOffer={handleDeleteOffer}
         />
       )}
       {activeTab === "requests" && (

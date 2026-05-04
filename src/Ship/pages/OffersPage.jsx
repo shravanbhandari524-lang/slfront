@@ -27,6 +27,7 @@ export default function OffersPage({
   setServices,
   handleCreateOffer,
   handleUpdateOffer,
+  handleDeleteOffer,
 }) {
   const [success, setSuccess] = useState(0);
   const [active, setActive] = useState("active");
@@ -44,11 +45,17 @@ export default function OffersPage({
     setSuccess(data);
   };
   useEffect(() => {
-    if (success == 1) {
+    if (success === 1) {
       toast("Offer created successfully", "success");
-    } else if (success == 69) {
-      toast("offer already exist", "error");
-    } else if (success == 67) toast("offer not found", "error");
+    } else if (success === 2) {
+      toast("Offer updated successfully", "success");
+    } else if (success === 3) {
+      toast("Offer deleted successfully", "success");
+    } else if (success === 69) {
+      toast("Offer already exists", "error");
+    } else if (success === 67) {
+      toast("Offer not found", "error");
+    }
   }, [success]);
   const onUpdateOffer = async () => {
     const data = await handleUpdateOffer(updateOfferId, {
@@ -58,6 +65,29 @@ export default function OffersPage({
     });
 
     setSuccess(data);
+
+    // clear AFTER success
+    if (data === 2) {
+      setUpdateLat("");
+      setUpdateLng("");
+      setUpdateOfferId("");
+      setUpdateServices("");
+    }
+  };
+  const onDeleteOffer = async () => {
+    if (!deleteOfferId) {
+      toast("Invalid offer id", "error");
+      return;
+    }
+
+    const data = await handleDeleteOffer(deleteOfferId);
+
+    setSuccess(data);
+
+    if (data === 3) {
+      setDeleteOfferId("");
+      setDeleteConfirm(false);
+    }
   };
   const selectForUpdate = async (offer) => {
     setUpdateOfferId(offer.id || "");
@@ -356,6 +386,7 @@ export default function OffersPage({
                   <button
                     className={styles.btnDanger}
                     disabled={!deleteConfirm || !deleteOfferId}
+                    onClick={onDeleteOffer}
                   >
                     Delete Offer
                   </button>
