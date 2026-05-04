@@ -1,7 +1,7 @@
 import styles from "./DashboardLayout.module.css";
 import {
   IconUser, IconPackage, IconClipboard, IconBriefcase,
-  IconAnchor, IconShip,
+  IconAnchor, IconShip, IconMap
 } from "./Icons.jsx";
 
 const TABS = [
@@ -9,6 +9,7 @@ const TABS = [
   { key: "offers",      label: "Offers",      Icon: IconPackage },
   { key: "requests",    label: "Requests",    Icon: IconClipboard },
   { key: "assignments", label: "Assignments", Icon: IconBriefcase },
+  { key: "map",         label: "Map",         Icon: IconMap },
 ];
 
 export default function DashboardLayout({ activeTab, onTabChange, onLogout, children }) {
@@ -75,6 +76,7 @@ export default function DashboardLayout({ activeTab, onTabChange, onLogout, chil
               {activeTabData?.key === "offers"      && "Create and manage your service offers"}
               {activeTabData?.key === "requests"    && "Post and track service requests"}
               {activeTabData?.key === "assignments" && "View and update active job assignments"}
+              {activeTabData?.key === "map"         && "View live vessel tracking and operations"}
             </p>
           </div>
 

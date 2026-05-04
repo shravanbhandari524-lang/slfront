@@ -99,3 +99,9 @@ export const IconRefreshCw = svg(<>
   <polyline points="1 20 1 14 7 14"/>
   <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
 </>);
+
+export const IconMap = svg(<>
+  <polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21" />
+  <line x1="9" y1="3" x2="9" y2="18" />
+  <line x1="15" y1="6" x2="15" y2="21" />
+</>);

@@ -4,6 +4,7 @@ import ProfilePage from "./pages/ProfilePage.jsx";
 import OffersPage from "./pages/OffersPage.jsx";
 import RequestsPage from "./pages/RequestsPage.jsx";
 import AssignmentsPage from "./pages/AssignmentsPage.jsx";
+import MapPage from "./pages/MapPage.jsx";
 import { useShipData } from "../hooks/useShipdata.js";
 import { useToast } from "../components/ui/Toast.jsx";
 import styles from "./Ship.module.css"; // We'll keep a tiny css file just in case
@@ -63,6 +64,9 @@ export default function Ship() {
       )}
       {activeTab === "assignments" && (
         <AssignmentsPage assignments={assignments} />
+      )}
+      {activeTab === "map" && (
+        <MapPage />
       )}
     </DashboardLayout>
   );
